@@ -1,3 +1,4 @@
 # HTML-practice
 
-[my HTML page](https://github.com/ifoundu/HTML-practice/blob/master/index.html)
+click [here],  
+and you will see this HTML page for my practice(https://ifoundu.github.io/HTML-practice/)
