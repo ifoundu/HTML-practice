@@ -161,4 +161,37 @@
 选择与内容结构含义最接近的HTML元素。产生更大的能力和灵活性。
 
 
+#### HTML列表
+- <li>：<li>每个列表项</li>  (list item)
+  - 列表项在<p>段落外
+    ![](./Note-Images/li-el-only.png)
+- 包围所有列表项:归为一组
+  - <ol>元素：有序列表(order list)
+   - 自动编号
+  - <ul>元素：无序列表(unordered list)
+    - 最好不要用不同的项目符号。待CSS部分讲。
+  ![](./Note-Images/oi-and-ul-el-tags.jpg)
+  ![](./Note-Images/oi-and-ul-el.jpg)
+  - 都只能包含<li>
+
+-- 都属于块元素
+-- 最好把</p>放在下一行
+![](./Note-Images/p-break.jpg)
+-- 可以嵌套
+![](./Note-Images/list-nested.jpg)
+
+- 定义列表
+ - <dl>:定义术语
+ - <dt>:定义描述
+```
+Bruna Shave Signs
+     Road Signs common in the U.S. in the 1920s and 1930s advertising shaving products.
+Route 66
+     Most famous road in the U.S. highway system.
+```
+
+  
+
+  
+
     
