@@ -483,5 +483,41 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 - 增加 alt ：替代显示不出的图像，页面信息更完整;可读屏  
 如果遵循标准，则你的页面会更快地显示，而且在不同浏览器中显示时差异会更小，CSS 也能更好地工作。
 
+#### 对旧的 html 稍做了解
+
+# 7. CSS 入门
+- CSS 语句：包括 元素 + 属性 + 样式
+- 选择元素：不需加尖括号,加上大括号, 如 p{} - 选择器
+- 指定设置样式的属性：如 background加：
+- 设置样式：如 颜色 red
+- 最后加 ;
+
+- 段落的边框
+  p {border:1px solid grey;}  
 
 
+- 可以为元素子集指定样式，即为，比如两个段落指定不同样式
+- 《CSS Pocket reference》
+- 一点点CSS 可以对HTML建立相当复杂的效果，更有利于处理多个页面的样式。
+
+
+#### CSS 样式
+- 修改段落和标题的字体、颜色 [格式直接看html](./7-CSS-Primer/lounge.html)
+- background-color：元素背景
+- font-family：字体
+- color ： 字体颜色
+- border-bottom: 元素的下边框，且延伸到页面边缘
+- border :  1px solid grey;
+- underlined: 文本下划线
+#### 使用原则
+- 共同的样式可以合并在一起，方便修改
+- 不同页面的相同样式放在一个文件夹：
+  - 建立 CSS 文件
+  - 将样式规则，不包括style标签，放进去
+  - 用 link 来链接 html 外部的 css 文件 
+#### link 属性
+- void 
+- 格式： type="text/css" rel=stylesheet href="lounge.css" 
+- type="text/css" : 在 html5 里不是必需，可选
+- ref: 指定 HTML 文件与所链接的文件之间的关系。要链接到一个样式表，所以使用值“stylesheet” 【Q】
+#### html 结构树
