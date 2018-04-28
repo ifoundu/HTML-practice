@@ -1,4 +1,37 @@
-  h1,h2 {
+body {
+  font-family:sans-serif;
+
+}
+h1,h2 {
+  color: grey;
+}
+
+h1 {
+  border-bottom:1px solid black;
+  }
+h2 {
+  text-decoration:underline;
+  }
+   
+p {
+  color:maroon;
+    
+    }
+
+p.greentea {
+  color:green;
+}
+
+p.Raspberry {
+  color:blue;
+}
+
+p.Blueberry {
+  color:purple;
+}
+
+
+     /* h1,h2 {
       font-family:sans-serif;
       color: grey;
     }
@@ -15,3 +48,6 @@
       font-family: sans-serif;
     
     }
+*/
+
+   

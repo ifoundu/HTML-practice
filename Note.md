@@ -122,7 +122,7 @@ HT(Hyper Text) : 链接到其他页面（文本）的文本
 
 #### blockquote 引用元素
 - 格式：换行，具体样式自定义，目前在Chrome里是“空一行，过一行，空一行”，跟教材上一样，如下图：
-![](./images/breakEl-looking.jpg)
+![](./Note-images/breakEl-looking.jpg)
 - 作用：
   - 单独长引用; 在段落外，自成一段
   - 内部可多段，用 p 元素;
@@ -465,7 +465,7 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 -  路径不能有空格
 -  实验性的？ P237 【Q】
 
-#### 字符编码
+#### 字符编码 
 -  如果浏览器猜错编码时，不仅可能导致页面显示错误，还会带来潜在的漏洞，让黑客有机可趁。  【Q】
 - 要为 Web 指定 Unicode 
 - meta 元素/标记: 要告诉浏览器关于页面的一些信息
@@ -486,10 +486,10 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 #### 对旧的 html 稍做了解
 
 # 7. CSS 入门
-- CSS 语句：包括 元素 + 属性 + 样式
-- 选择元素：不需加尖括号,加上大括号, 如 p{} - 选择器
+- CSS 规则 rules：包括 (html)元素 + 属性 + 样式
+- 选择元素：不需加尖括号,加上大括号, 如 p{} - 选择器 = html 元素
 - 指定设置样式的属性：如 background加：
-- 设置样式：如 颜色 red
+- 设置样式：如 颜色 red [样式 其实就是 值 p267: underline 被称为"值"]
 - 最后加 ;
 
 - 段落的边框
@@ -520,4 +520,75 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 - 格式： type="text/css" rel=stylesheet href="lounge.css" 
 - type="text/css" : 在 html5 里不是必需，可选
 - ref: 指定 HTML 文件与所链接的文件之间的关系。要链接到一个样式表，所以使用值“stylesheet” 【Q】
-#### html 结构树
+#### html 结构树 
+各元素之间的上下级关系 p270
+### 继承 inheritance
+元素从它的父元素继承样式
+- 在段落中改变字体并不是一个好主意 p284 [Q]
+- 能继承的: 这些样式会影响文本的外观,如字体颜色 color ,字体系列 font-family , 以及所有与字体相关的属性,如 font-size 字体大小,font-weight 字体精细 和 font-style 是否斜体.
+- 其他属性不能继承, 比如 , 边框.
+
+### 类 class
+作用：突破 HTML 结构树的束缚，指向相同样式的元素; html 是左手， CSS 是右手。
+特质:
+  - 自定义名称
+  - 选择属于某个类的 p 元素:
+  - 作为 html 元素的属性  
+步骤
+- 在 html 中为绿色的 p 元素增加 class 属性  
+格式：在元素开始标签里加上 = class 名。 class名可以是多个，用空格隔开，顺序不重要。
+- 在 CSS 中创建类选择器  
+格式：元素名.类名 {} 或者 直接.类名{} p291
+
+[.css](./7-CSS-primer/lounge.css)
+
+### 样式 在html 里的实现顺序
+#### 【原则】：
+以 html 为先，CSS 为次。毕竟是在 HTML文件中调用 css规则或文件的; CSS 文件将 CSS 从 html 抽离出去，但检查顺序没有变。  
+#### 具体： 
+逐个往下级检查 （ 实现优先级正相反：最后检查到的为准 ）
+`p { color }` : 选择器样式 - 选择器是 html 元素。
+  
+先于  
+
+`继承`: html 中元素的上下级关系，或由外到内的关系。
+  
+先于
+
+`浏览器默认设置`
+  
+先于
+  
+`.xxx { color }` :（无选择器）纯类样式   
+
+  
+先于
+
+`p.xxx { color }` ：选择器.类 样式  
+  
+先于  
+
+多个`p.xxx { color }` 由 CSS 文件里最后的那个决定[ Html的属性重要性是并列的，所以只考虑 css 文件中类的顺序 ]
+
+
+### 样式自身等级
+类：当 CSS 从 Html 抽离出去后，书里才讲到类。逻辑上来讲，演进顺序是以 Html 为先。
+属性：font-family 等
+
+### 验证工具
+[http://jigsaw.w3.org/css-validator](http://jigsaw.w3.org/css-validator)
+
+### 更多属性
+- padding: 内边距
+- font-weight: 文本粗细
+- line-height: 文本行间距
+- top: 元素顶部的位置
+- text-align: 文本对齐方式
+- letter-spacing:  字母间距
+- background-color: 背景颜色
+- border: 元素边框 - 实线，凸起，虚线
+- font-size: 字体大小
+- font-style: 设置斜体 italic
+- list-style: 列表中列表项的外观
+- background-image: 在元素后面放置一个图像 Q：与 img 有什么不同？
+- left: 指定一个元素的左边所在位置
