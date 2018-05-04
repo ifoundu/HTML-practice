@@ -466,7 +466,7 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 -  实验性的？ P237 【Q】
 
 #### 字符编码 
--  如果浏览器猜错编码时，不仅可能导致页面显示错误，还会带来潜在的漏洞，让黑客有机可趁。  【Q】
+- 如果浏览器猜错编码时，不仅可能导致页面显示错误，还会带来潜在的漏洞，让黑客有机可趁。  【Q】
 - 要为 Web 指定 Unicode 
 - meta 元素/标记: 要告诉浏览器关于页面的一些信息
 - charset 属性：使用的字符编码类型
@@ -576,13 +576,18 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 类：当 CSS 从 Html 抽离出去后，书里才讲到类。逻辑上来讲，演进顺序是以 Html 为先。
 属性：font-family 等
 
+类 名 ： P397
+ - 不能有空格
+ - 要以字母开头
+ - 可以包含下划线
+
 ### 验证工具
 [http://jigsaw.w3.org/css-validator](http://jigsaw.w3.org/css-validator)
 
 ### 更多属性
 - padding: 内边距
 - font-weight: 文本粗细
-- line-height: 文本行间距
+- line-height: 文本行间距 (行间距的印刷术语：leading)
 - top: 元素顶部的位置
 - text-align: 文本对齐方式
 - letter-spacing:  字母间距
@@ -630,7 +635,20 @@ font-family: 候选字体1，2,...，n,所属字体系名;
 4. 在 css 引用 ：采用 @font-face 规则 [使用：注意逗号和分号](./8-Fonts-and-colors/TonySegway.css)
 5. 在 css 中使用 font-family 名：浏览器向服务器请求对应字体
 
+```css
+@font-face {
+  font-family:"Emblema One";
+  src: url("http://wickedlysmart.com/hfhtmlcss/chapter8/journal/EmblemaOne-Regular.woff"),
+       url("http://wickedlysmart.com/hfhtmlcss/chapter8/journal/EmblemaOne-Regular.ttf");
+}
+
+h1 {
+  font-family: "Emblema One", sans-serif;
+  font-size: 220%;
+}
+```
   
+
 [字体链接失败 Q]   
 
 web 字体托管服务：  
@@ -858,8 +876,11 @@ border-bottom-right-radius: 15px;
 ```
 ### id属性 （延伸到CSS )
 id 属性 在 HTML 里是唯一的，只能与页面中的一个元素匹配
-id 名不能有空格或其他特殊字符。
-在CSS外部文件里
+id 名
+ - 不能有空格或其他特殊字符。
+ - 可以用数字或字母开头 （ 类 要以字母开头）
+ - 可以包含下划线
+
 
 ```css
 <p id="footer">Please steal this page, it isn't copyrighted in any way</p>
@@ -880,3 +901,87 @@ specials { };
 p#footer { };
 /**/
 ```
+### 多个样式表
+
+```html
+<link type="text/css" href="corporate.css" rel="stylesheet">
+<link type="text/css" href="beverage-division.css" rel="stylesheet">
+<link type="text/css" href="lounge-seattle.css" rel="stylesheet">
+
+/*下面的样式表 会覆盖在它上面链接的样式表中的样式*/
+```
+#### 使用原因
+- 一般网站会有一个基础样式（表），要修改样式，并不是修改这个样式表，而是在它下面提供新的样式表，指定你要修改的样式。P399
+
+- ** 针对不同的设备类型，显示不同的页面，手机，笔记本电脑，平板，或印刷版面 ：  
+  为HTML增加多个link标记，涵盖要支持的所有设备
+
+设备`满足以下条件`才会 `指定这个样式表`
+```html
+<link href="lounge-mobile.css" rel="stylesheet" media="screen and (max-device-width: 480px)">
+
+<!-- media 指定样式表的“设备类型” -->
+<!-- screen ： 有屏幕的设备 -->
+<!-- max... ： 屏幕宽度不超过480px -->
+
+```
+
+```html
+<link href="lounge-print.css" rel="stylesheet" media="print">
+
+<!--这个文件只有当 媒体类型为print时才会使用-->
+```
+
+#### min-device-width 属性
+#### max-device-width 属性
+#### 显示方向 orientation 属性
+[orientation, 横向 landscape 或 纵向 portrait ]
+并列到 html 的 media属性里，（css 应该也一样)
+```css
+...
+media="screen and (max-device-width:768px) and (orientation:portrait)" /*书里是 1024px 应该是错的 */
+media="screen and (max-device-width:1024px) and (orientation:landscape)"
+```
+
+
+** 指定特定设备，还可以在CSS 里使用media规则
+### @media 规则
+只包含特定于一种媒体类型 【一条规则用于一个媒体类型】
+通用的规则放在 @media 下面
+
+```css
+@media screen and (min-device-width: 481px) {
+  #guarantee {
+    margin-right: 250px;
+  }
+}
+
+@media screen and (max-device-width: 480px) {
+  #guarantee {
+    margin-right: 30px;
+  }
+}
+
+@media print {
+  body {
+    font-family: Times,"Times New Roman", serif;
+  }
+}
+
+p.specials {
+  color:red;    <!--适用于所有页面-->
+}
+```
+
+关键部分与 HTML 的media属性一样，都是  `screen and (min-device-width:281px)`  
+HTML 中 是 `media="screen and (min-device-width:281px)" `   
+CSS 中是 `@media screen and (min-device-width:281px)`
+
+#### 其他媒体属性的查看
+[CSS3媒体查询规范](http://www.w3.org/TR/mediaqueries)  
+《Head First Mobile Web》
+
+#### bullet points
+- 内边距和外边距还可以用百分数设置 （前面未讲到）
+- 一个元素只能有一个 id，但它可以属于多个类。
+- 【同类型元素里，只能有一个元素被指定某个id ,即某种样式。也就是说，用id指定的样式，在同类型元素里，是不会重复的。】
