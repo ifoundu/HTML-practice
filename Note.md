@@ -330,7 +330,7 @@ File Transfer Protocol,文本传输协议
 1. 创建 id 锚点： 
   - 选择要链接到的页面和位置：任何文本，通常选标题
   - 使用 id 属性，创建锚点，即锚点名/标识符名 :   
-    - 所选位置的元素的开始标记里 加上 id 属性，如 h1 `id =""`
+    - 所选位置的元素的开始标记里 加上 id 属性，如 `<h1 id ="">`
     - 查看页面源码，使用现有锚点
   - 锚点名区分`大小写`，用`字母开头`，不能有空格
   - 锚点名在页面需要是唯一的，不重复的文本。
@@ -444,8 +444,8 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
   以及用来构建 Web 应用的功能。
 ## 旧语法 略 P225 
  !DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-     "http:/www.w3.org/TR/xhtml111/DTD/xhtml111.dtd"
+     PUBLIC "-//W3C//DTD XHTML 1.1//EN"  
+     "http://www.w3.org/TR/xhtml111/DTD/xhtml111.dtd"
 ## HTML5
 即现在的 HTML 规范/标准
 - 符号 !DOCTYPE html : doctype —— 文档类型定义
@@ -796,3 +796,87 @@ CSS 把每一个元素都看作由一个盒子表示。
 - （可能）的边框 border
 - 透明外边距 margin（空间） ： 元素之间的间距
 
+#### background-image 属性
+- 与 img 元素的区别
+  - background-image 是CSS属性， img 是 html 元素
+  - 背影图像属于表现方面，作用是装饰； img 是 结构方面，包含的图片是内容的一部分
+  - 设置一个元素的背景图像; img 元素是用来在页面中放置图像
+- 默认重复
+#### background-repeat
+- no-repeat 只显示一次
+- repeat-y
+- repeat-x
+- inherit 继承
+#### background-position
+- 可以用关键字指定
+- 可以用像素指定
+- 可以用百分比指定
+#### padding-left
+对于内边距、外边距和边框，CSS在每个方向都提供了一个属性。
+顺序很重要，上面的设置会被下面的覆盖。
+有问题Q: 看 CSS 里 Padding-left的[注释](./9-Box/lounge.css)
+### 边框
+border-top-style：如下border-style的8种
+border-top-color
+border-top-width：如下border-width的指定
+...
+每一边可以单独设置边线的类型，颜色和线宽
+
+#### border-style
+- solid 实线
+- dotted 点线
+- doubled 双线
+- dashed 破折线
+- groove 槽线 
+- outset 外凸
+- inset 内凹
+- ridge 脊线 
+
+#### border-width
+- 可以用关键字指定： thin, medium, thick 浏览器的默认大小设定可能不一样
+- 可以用像素指定
+
+#### border-color
+与设置字体颜色类似
+- 颜色名指定
+- 百分比 或相对值
+- 十六进制码
+```css
+border-color: red;
+border-color: rgb(100%, 0%, 0%);
+border-color: #ff0000;
+```
+
+#### border-radius 圆角
+- 可以用像素指定半径
+- 可以用em指定半径：相对元素的字体大小 ？ Q
+```css
+border-top-left-radius: 15px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px; /*没有圆角也要写吗？ Q*/
+border-bottom-right-radius: 15px;
+```
+### id属性 （延伸到CSS )
+id 属性 在 HTML 里是唯一的，只能与页面中的一个元素匹配
+id 名不能有空格或其他特殊字符。
+在CSS外部文件里
+
+```css
+<p id="footer">Please steal this page, it isn't copyrighted in any way</p>
+```
+
+id 的用法与 类 相似：
+```css
+/* specials 类中的段落 */
+p.specials { };
+
+/* 类中的所有元素 */
+specials { };
+
+/* footer中的任意元素 */
+#footer { };
+
+/* footer中的<p>元素 */
+p#footer { };
+/**/
+```
