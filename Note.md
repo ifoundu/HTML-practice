@@ -825,8 +825,8 @@ CSS 把每一个元素都看作由一个盒子表示。
 - repeat-y
 - repeat-x
 - inherit 继承
-#### background-position
-- 可以用关键字指定
+#### background-position p383
+- 可以用关键字指定 top,left,right,bottom,center, top left...
 - 可以用像素指定
 - 可以用百分比指定
 #### padding-left
@@ -985,3 +985,176 @@ CSS 中是 `@media screen and (min-device-width:281px)`
 - 内边距和外边距还可以用百分数设置 （前面未讲到）
 - 一个元素只能有一个 id，但它可以属于多个类。
 - 【同类型元素里，只能有一个元素被指定某个id ,即某种样式。也就是说，用id指定的样式，在同类型元素里，是不会重复的。】
+
+# 10 div and span
+
+## 逻辑区 logic section
+### 概念：
+页面上彼此相关的一些元素。
+### 作法
+- 相关元素放在一组 div 开始结束标记里面
+- 可以用 id 创建唯一标签
+- 指定样式,用 id 选择器： #id名
+### 作用
+- 展现页面的的底层结构，帮助用户理解页面内容，并有助于页面维护
+- 为逻辑区应用样式
+- 从结构考虑页面设计
+
+### 注意
+
+- 在保证完成任务的前提下让结构尽可能简单
+
+#### width 属性
+Q:将浏览器缩小小于200px, elixirs的边框消失且字体变大。为什么？
+[页面文件](10-div-and-span)
+```css
+#elixirs {
+  ...
+  width:200px;  
+}
+```
+- 只指定内容区的宽度，不是盒的宽度。
+- 盒宽度 = 左外边距+边框宽度+左内边距 + 右内边距+边框宽度+右外边距。
+- 不用指定盒宽度，即不用元素宽度。直接加起来。
+- 块元素的默认宽度是 auto，允许内容填满可用的所有空间。
+- 可以用百分比：宽度为元素所在容器宽度的一个百分比。（容器可以是body,div等）
+
+#### 高度
+auto，浏览器在垂直方向上会延伸内容区，使所有内容都可见。  
+指定高度，内容会有“溢出”风险。所以一般不指定高度。
+
+### 为 div 增加样式
+#### text-align 对齐
+- 会对块元素里的所有内联内容对齐
+- 只能在块元素上设置
+- div 里的嵌套块元素如 p 等，会继承div的样式 （并不是所有的属性都能继承）
+
+##### 大多数浏览器中的 border-width: thin; 是1px
+
+### CSS 子规则
+html 里 `div id="elixirs"里的元素`， 在 CSS 里`对应的规则` ： `子规则`  
+
+```css
+#elixirs h2 { }  // 同时应用于嵌套元素里的 h2
+
+#elixirs>h2 { }  // 不会用于嵌套元素 P438
+
+#elixirs blockquote h2 { } 
+```
+
+#### line-height 属性
+可以用 1 （不是 1em ），直接指定行高为当前各个元素的1倍，当标题为16px,行高为16px，当段落为12px,行高为12px。
+
+1em 指定的1倍，是指定的字体的相对大小，比如指定了body字体为small，而所有继承 1em 的行高都是 small的1倍。
+
+Q: 再确认一下 P440 右边的内容。
+
+#### 快捷写法
+
+```css
+  padding-top:    0px;
+  padding-right:  20px; 
+  padding-bottom: 20px;
+  padding-left:   20px;
+  
+  padding: 0px,20px,20px,20px;  /* top-right-bottom-left */
+
+  padding: 20px; /* 四周等距 */
+```
+
+```css
+  margin-top:   0px;
+  margin-right: 20px;
+  margin-bottom:0px;
+  margin-left:  20px;
+
+  margin: 0px 20px; /* 上下一样，左右一样 */ 
+```
+
+```css
+border-width: thin;
+border-style: solid;
+border-color: #007e7e;
+
+border: thin solid #007e7e; /*任何顺序都可以，像组合一样看待*/
+
+border: thin solid;
+border: solid #007e7e;
+border: thin;
+```
+
+```css
+background-color: white;
+background-image: url(images/cocktail.gif)
+background-repeat: repeat-x;
+background-position: top left; /* Q: 合并时要加双引号，还是加破折号？ */
+
+/*合并,也是组合*/
+background:white url(images/cocktail.gif) repeat-x;
+
+```
+
+#### 字体的简写
+
+```css
+font:font-style font-variant font-weight font-size/line-weight font-family
+/*font-style font-variant font-weight: 可写可不写，可选 */
+/*font-size : 必写 */
+/*line-weight: 可选,要在前面加"/" */
+/*font-family: 至少需要指定一个字体（系列？） 字体名之间用逗号隔开*/
+/* 各属性之间用“空格”隔开 */
+
+font: small/1.6em Verdana, Helvetica, Arial, sans-serif;
+
+```
+
+#### 参考手册
+快速查找属性名或一个属性的语法：
+Eric Meyer `<<CSS Pocket Reference>>`
+
+
+#### line-height (more)
+关键字 normal 允许浏览器选择一个适当的行高大小，通常要根据字体确定
+
+## span
+创建内联字符和元素的逻辑分组
+- 在 html 里用 span 标记包围，并创建 class 标签
+- 在 css 里创建对应 class 的规则
+
+#### a 元素的样式
+a 元素的不同：
+- 点击前一种样式
+- 点击后改变样式
+- 悬停时一种样式
+
+```css
+a:link {     /*不能有空格*/
+  color: green;
+}
+
+a:visited {
+  color: red;
+}
+
+a:hover {
+  color:yellow;
+}
+
+```
+
+作用：用户友好
+
+##### a  的其他属性
+有的浏览器允许用户用 tab 轮流访问页面上的链接
+
+```css 
+a:focus {   /* 访问到时 */
+
+}
+
+a:focus {   /* 第一次单击一个链接时 */
+
+}
+```
+
+** 以上属性的排列顺序，是适当的。
