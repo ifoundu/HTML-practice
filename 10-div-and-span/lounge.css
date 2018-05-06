@@ -55,6 +55,8 @@ h2 {
   background-repeat: repeat-x;
 
   line-height: 1;
+
+  float:right;
 }
 
 #elixirs h2 {
@@ -80,14 +82,23 @@ h2 {
   font-weight:bold;
 }
 
-a:link {
-  color: green;
+#elixirs a:link {
+  color:red;  /* 书里要求的颜色是 #007e7e 做练习不够明显 */
 }
 
-a:visited {
+#elixirs a:visited {
+  color: #333333;
+}
+
+#elixirs a:hover {
+  background:#f88396;
+  color: #0d5353;
+}
+
+a:link { 
   color: red;
 }
 
-a:hover {
-  color:yellow;
+a:visited { 
+  color: #333333;
 }

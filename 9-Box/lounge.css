@@ -16,7 +16,7 @@ h2 {
   font-size: 130%;
 }
 
-.guarantee {
+#guarantee {
 
   line-height: 1.9em;
   font-style:italic;
@@ -28,7 +28,7 @@ h2 {
   border-style: dashed;
   background-color: #a7cece;
   padding: 25px;
-  padding-left: 50px;  /*改成50px时，右边内边距会不正常地增大，文本变成接近居中*/
+  padding-left: 80px;  /*改成50px时，右边内边距会不正常地增大，文本变成接近居中*/
   margin: 30px;
   margin-right:250px;
   background-image:url(images/background.gif);
