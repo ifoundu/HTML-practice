@@ -1324,4 +1324,73 @@ A:
 
 
 
-#### 
+#### 浮动元素设置在右边的问题：
+右边栏内容需要调到html的主内容上方（显示在左边），  
+书里说，因此，有些设备，比如手机的浏览器，受限的原因，浮动元素会显示到主内容的上方。 p497  
+不过，事实上，目前在手机的浏览器如safari显示时，并没有出现上述问题。再看看。
+
+### 另一种 float 方式：设置主内容浮动在左边
+- html里：将边框内容 sidebar 移回 main 的下面
+- css里：如下
+
+```css
+#main {
+  background:       #efe5d0 url(images/background.gif) top left;
+  font-size:        105%;
+  padding:          15px;
+  margin:           0px 10px 10px 10px;
+
+  width:            420px; /* 按 470px总宽度-左右10px外边距-padding 左右 15px = 420px （但不知470哪来的，暂时不重要，因为这个方法行不通*/
+  float:            left;  /* 增加 */
+}
+
+#sidebar {
+  background:       #efe5d0 url(images/background.gif) bottom right;
+  font-size:        105%;
+  padding:          15px;
+  margin:           0px 10px 10px 470px;
+
+  /* 
+  float: right; 去掉
+  width: 280px; 去掉
+  */
+}
+
+#footer {
+  background-color: #675c47;
+  color:            #efe5d0;
+  text-align:       center;
+  padding:          15px;
+  margin:           10px;
+  font-size:        90%;
+  clear: left;    /*将right改成left*/
+}
+```
+
+### 左右浮动的比较
+从设计来说，第一种设计比较好。  
+从信息角度讲，第二种比较好，因为 html 里 div 的顺序是正常的。  
+在第二种的基础上，采用以下冻结方式和凝胶布局 ：  
+
+### 流体与冻结设计
+#### 流体布局（liquid layouts）
+以上是流体布局（liquid layouts）。不论我们将浏览器调整到多大的宽度，布局都会扩展，填满整个浏览器，用户能够充分利用他们的屏幕空间。
+#### 冻结布局 （frozen layouts）
+让布局锁定，当用户调整屏幕大小时，你的设计仍能保持原样。这称为冻结布局。  
+这样这些元素根本不能移动，就能避免由于窗口扩展带来的很多问题。  
+
+- 在 html 里增加 div, 在body里，包含全部内容。
+- 在 css 里建立规则：如下，并添加到 css 文件最下面。 
+
+```css
+#allContent {
+  width:  800px;
+  padding-top:5px;   /*对应的div是第一个div,增加一些内边距。事实上，反而看不到内边距。Q:?*/
+  padding-bottom:5px;
+  background-color:#675c47;  /*增加背景颜色，有助于把整个页面联系在一起*/
+}
+```
+
+#### 凝胶布局 （jello）
+会锁定页面中内容区的宽度，不过会将它在浏览器中居中。  
+- 指定内容区宽度为 auto 时，浏览器会根据需要扩展内容区。外边距为 auto 时，浏览器会确定正确的外边距是多少，另外还会确保左和右外边距相同，所以内容会居中。Q: 不记得，回头找找。
