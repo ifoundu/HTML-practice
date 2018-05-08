@@ -5,6 +5,8 @@ body {
   margin:           0px;
 }
 
+
+
 #header {
   background-color: #675c47;
   margin:           10px;
@@ -64,4 +66,14 @@ a:visited {
   color:            #675c47;
   text-decoration:  none;
   border-bottom:    thin dotted #675c47;
+}
+
+#allContent {
+  width:  800px;
+  background-color:#675c47;
+  padding-top:5px;
+  padding-bottom:5px; /*为什么加上内边距后，显示的页面反而没有内边距？*/
+
+  margin-left:  auto;
+  margin-right: auto;
 }
