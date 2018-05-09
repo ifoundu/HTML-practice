@@ -1377,20 +1377,177 @@ A:
 以上是流体布局（liquid layouts）。不论我们将浏览器调整到多大的宽度，布局都会扩展，填满整个浏览器，用户能够充分利用他们的屏幕空间。
 #### 冻结布局 （frozen layouts）
 让布局锁定，当用户调整屏幕大小时，你的设计仍能保持原样。这称为冻结布局。  
-这样这些元素根本不能移动，就能避免由于窗口扩展带来的很多问题。  
+这样这些元素根本不能移动，就能避免由于窗口扩展带来的很多问题。    
 
+
+步骤：
 - 在 html 里增加 div, 在body里，包含全部内容。
 - 在 css 里建立规则：如下，并添加到 css 文件最下面。 
 
 ```css
 #allContent {
-  width:  800px;
-  padding-top:5px;   /*对应的div是第一个div,增加一些内边距。事实上，反而看不到内边距。Q:?*/
+  width:  800px;     /*冻结*/
+  padding-top:5px;   /*是第一个div,增加一些内边距。*/
+  /*事实上，反而看不到内边距。Q:? A:"检查"可以看得到了，因有背景色看不出来，作用应该是使header稍往下一点，视觉上好看点*/
   padding-bottom:5px;
   background-color:#675c47;  /*增加背景颜色，有助于把整个页面联系在一起*/
 }
 ```
 
 #### 凝胶布局 （jello）
+前提：在 html 里增加 div, 在body里，包含全部内容。 （同以上冻结布局） 
+步骤：直接在CSS里增加`自动的外边距`，如下
+```css
+#allContent {
+  width:  800px;
+  padding-top:5px;   
+  padding-bottom:5px;
+  background-color:#675c47;  
+
+  margin-left: auto;  /*自动外边距*/
+  margin-right:auto;  /*自动外边距*/
+}
+```
+
 会锁定页面中内容区的宽度，不过会将它在浏览器中居中。  
 - 指定内容区宽度为 auto 时，浏览器会根据需要扩展内容区。外边距为 auto 时，浏览器会确定正确的外边距是多少，另外还会确保左和右外边距相同，所以内容会居中。Q: 不记得，回头找找。
+
+### 绝对定位 (absolute positioning)
+```css
+#sidebard {
+  position: absolute;
+  top:      128px;   /*属性*/
+  right:    0px;   /*属性*/
+  width:    280px;
+}
+```
+一个元素绝对定位时，  
+- 浏览器首先要做的是将它从流中完全删除，
+- 然后浏览器将这个元素放置在top和right属性指定的位置上
+- 对其他元素没有任何影响 （如果是浮动元素，流中的元素会调整它们的内容来适应浮动元素的边界）  
+[html](11-layout-and-positioning/absolute/index.html)    
+[css](11-layout-and-positioning/absolute/starbuzz.css)
+#### position
+- 默认值：static 静态 
+  在正常的文档流中，即使使用float属性将一个元素从流中取出，仍然是由浏览器确定它放在哪里。（其实应该说是 HTML 吧）
+- absolute 值 ：由你来告诉浏览器把元素放在什么位置（其实应该是 CSS 吧）
+
+- fixed 值：固定定位是将元素放在相对于浏览器窗口的一个位置上（而不是相对于页面），永远不会移动
+- relative 值：相对定位，会让元素正常地流入页面，不过在页面上显示之前要进行偏移。常用于更高级的定位和特殊效果。
+#### z-index 属性
+值越大，越上层
+
+#### 其他
+- 可以定位内联元素
+  - 指定 img 元素的位置很常见
+
+- width 属性在绝对定位里，不是必须。但如果不设置，则默认除去偏移量后会自动布满剩余的浏览器宽度。
+- 可以用百分比指定位置：改变浏览器宽度时，元素的位置可能会改变。
+  - left 10% : 距浏览器窗口左边(浏览器宽度800px * 10% = 80px)的位置
+- 可以用百分比指定宽度：主内容和边栏大小更灵活。在两栏和三栏布局中常用。  
+
+### CSS 表格显示（布局方式）
+允许你在一个有行和列的表格中显示块元素。  
+通过将内容放在一个CSS表格中，可以很容易地用HTML和CSS创建多栏设计。  
+#### 表格如何工作
+- 每个单元格会包含一个HTML块元素。
+  - 图像 img 需要包围在一个 div 中
+  - 如果是 div， 单行可用 id 标识; 多行可用 class 标识。
+- 表格会自动扩展来适应单元格宽度和高度
+##### 步骤
+- 在html里增加 表格div 
+- 在html里增加 行div
+- 把相关内容的div放进行div
+- 在css建立 表格div对应规则
+- 在css建立 行div对应规则
+- 调整外边距
+Q: 为什么不用设置宽度？ 
+[HTML](11-layout-and-positioning/tabledisplay/index.html)
+[CSS](11-layout-and-positioning/tabledisplay/starbuzz.css)
+
+#### display 属性 
+- 表格值：
+  - table
+  - table-row
+  - table-cell
+
+#### border-spacing
+为表格中的`单元格`增加边框间距，可以看作是常规元素的外边距。
+但是，
+这个间距，不会跟其他元素的折叠。P517 (应该是因为，border-spacing是表格内部的空间，因为它是为表格中的单元格增加的)
+#### vertical-align 
+单元格对齐
+- top
+- middle 默认
+- bottom
+
+#### CSS 表格的性质
+是一种类似表格的布局，用来表现结构中的内容，是创建某种表现（布局）的一种方法。
+相对来说, HTML 表格面向的是表格数据，是建立数据的结构。
+
+#### 其他
+- CSS 多行情况下，列数要相同。
+
+### CSS 布局策略
+
+- 建立页面布局有多种方法
+- 并不需要对 html 做太多修改，大多用CSS处理内容
+- 如何选择方法，取决于布局（需要）和灵活性的要求
+
+#### 浮动布局的选择
+##### 适用：
+- 适合主内容围绕边栏，突出内容的相对重要性 (html中边栏内容位于前面，则较适合浮动)
+- 适合段落中的文本围绕图像
+- 可搭配 （对页脚使用） float属性，避免重叠
+##### 缺点
+- 浮动的div`移到了主内容之上`，如果这种顺序并不反映页面中内容的相对重要性，则不是最优选择 （如果内容没有相对重要性，则不适合）
+- 无法创建高度`相同的列`
+
+#### 凝胶布局的选择
+固定页面中所有的内容（的宽度），利用 auto 属性值`允许外边距（自动）扩展`。  
+`解决内容顺序的问题`
+##### 优点：如上。
+##### 缺点：
+内容不会扩展来填满整个浏览器窗口
+
+#### 绝对布局的选择
+保证内容的顺序是我们希望的（ html文本流顺序与显示顺序一致）
+边栏宽度`固定`
+`定位`在主内容右边    
+主内容可`自动扩展`  
+##### 优点：
+- 一边固定，一边活动  
+- 精确定位
+##### 缺点：
+固定的部分会覆盖页脚
+
+#### 表格布局的选择
+前提：需要增加两个 div   
+优点：
+- 完美对齐的列
+- 活动的列
+- 方便增加更多列
+
+#### 页眉修正 用float
+- 一个图片分解成两个
+- 增加 html id
+- 增加右边图片的 css 规则：用 float
+
+```html
+  <div id="header">
+      <img id="headerLogo" 
+           src="images/headerLogo.gif" 
+           alt="Starbuzz Coffee header image">
+      <img id="headerSlogan"
+           src="images/headerSlogan.gif"
+           alt="Providing all the caffeine you need to power your life.">
+    </div>
+```
+
+```css
+#header img#headerSlogan {   /* 或者直接 #headerSlogan */
+  float:right;
+}
+
+```
+页眉的高度等于两个图像的高度  完美对齐  不用为`"tableContainer" <div>` 增加 `clear:right`
