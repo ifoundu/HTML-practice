@@ -13,6 +13,11 @@ body {
   height:           108px;
 }
 
+#header img#headerSlogan {   /* 或者直接 #headerSlogan */
+  float:right;
+}
+
+
 #main {
   background:       #efe5d0 url(images/background.gif) top left;
   font-size:        105%;
@@ -74,6 +79,6 @@ a:visited {
   padding-top:5px;
   padding-bottom:5px; /*为什么加上内边距后，显示的页面反而没有内边距？*/
 
-  margin-left:  auto;
-  margin-right: auto;
+  margin-left:  auto; /* 凝胶布局 */
+  margin-right: auto; /* 凝胶布局 */
 }
