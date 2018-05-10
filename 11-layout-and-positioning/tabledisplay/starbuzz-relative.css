@@ -40,6 +40,16 @@ body {
   vertical-align:top;
 }
 
+#coupon {
+  position: relative;  /*定位*/
+  top:25px;
+  left:-90px;
+}
+
+#coupon a,img {   /* 合并对a href和img的规则*/
+  border: none;   /* 链接的地址和图像的边框去除*/
+}
+
 #main {       /* 为什么不用设置 宽度 ？？ */
   display:          table-cell;
   background:       #efe5d0 url(images/background.gif) top left;
@@ -59,15 +69,7 @@ body {
 }
 
 
-#coupon {
-  position: fixed;
-  bottom: 25px;  /* 原：top: 350px 自己改的 */
-  left: -90px;   /* 原：left:0px; 教材改的 */
-}
 
-#coupon a,img {   /* 合并对a href和img的规则*/
-  border: none;   /* 链接的地址和图像的边框去除*/
-}
 
 
 
