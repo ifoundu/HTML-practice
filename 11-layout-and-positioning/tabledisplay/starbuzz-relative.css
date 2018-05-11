@@ -36,13 +36,13 @@ body {
   display: table-cell;
   background-color: #efe5d0;
   width: 20%;    /* 宽度 */
-  padding: 15px;
+  padding: 0px;
   vertical-align:top;
 }
 
 #coupon {
   position: relative;  /*定位*/
-  top:25px;
+  top:0px;        /*参照：所在元素的空白区域*/
   left:-90px;
 }
 
