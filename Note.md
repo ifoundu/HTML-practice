@@ -1250,7 +1250,8 @@ p465
 
 ### Flow
 这是所有生物创建的一个能量域。  
-流，是浏览器在页面上`摆放HTML元素`所用的`方法`。  
+流，是浏览器在页面上`摆放HTML元素`所用的`方法`。    
+而且是`静态元素` P538
 浏览器从html文件最上面开始,`从上到下`沿着`元素流` `逐个`显示所遇到的各个元素。  
 [流，就是逐个显示元素。]
 
@@ -1258,7 +1259,8 @@ p465
 间距：上下外边距，会选择两个元素间较大的外边距显示。  
 如，上元素的下外边距10px,下元素的上外边距20px,会显示20px的间距。
 即使在嵌套里面，也是一样。  
-如果嵌套元素有边框，则不会折叠。
+如果嵌套元素有边框，则不会折叠。英文：collapse  
+各元素之间有一个换行 P539
 #### 内联元素在水平方向止会相互挨着，总体上会从左上方流向右下方。
 Q: 浏览器必须用`不同方式`分解文本，使它能刚好适合内容区大小。P475
 
@@ -1284,6 +1286,20 @@ Q: 段落是一个块元素，所以不会有元素上移到它旁边。
 查看 [CSS 文件](11-layout-and-positioning/starbuzz/starbuzz.css)
 查看 [html 文件](11-layout-and-positioning/starbuzz/index.html)
 
+- html 里： 将 sidebar div 放置到要显示的元素下面
+- css 里：设置 width 和 float
+
+```css
+#sidebar {
+  background:       #efe5d0 url(images/background.gif) bottom right;
+  font-size:        105%;
+  padding:          15px;
+  width:            280px;   /* 必须有特定的宽度 P537 */
+  float:            right;   /* 浮动在右边 */
+}
+```
+
+
 #### 链接样式:使用虚线下划线
 - 消除链接下方默认的下划线
 - 使用内联元素边框属性
@@ -1308,9 +1324,10 @@ a:link {
 不要出现 float 元素
 ```css
 #footer {
-  clear: right;
+  clear: right; 
 }
 ```
+clear 使元素下移至不会遇到浮动元素。
 
 - float 浮动元素的`外边距`，`不会`和正常流中元素的外边距`折叠`。p496
 - 常见错误：因为浮动元素的外边距不会跟上面的元素折叠（效果是显示距离较大），所以，如果主内容区和浮动元素都有外边距时，显示出来，两者可能会有不同的外边距。
@@ -1374,9 +1391,10 @@ A:
 
 ### 流体与冻结设计
 #### 流体布局（liquid layouts）
-以上是流体布局（liquid layouts）。不论我们将浏览器调整到多大的宽度，布局都会扩展，填满整个浏览器，用户能够充分利用他们的屏幕空间。
+以上是流体布局（liquid layouts）。不论我们将浏览器调整到多大的宽度，布局都会`扩展`，填满/适应整个浏览器，用户能够充分利用他们的屏幕空间。
 #### 冻结布局 （frozen layouts）
-让布局锁定，当用户调整屏幕大小时，你的设计仍能保持原样。这称为冻结布局。  
+让`布局锁定/固定`，当用户调整屏幕大小时，你的设计仍能保持原样。这称为冻结布局。   
+对设计提供更多控制。p537
 这样这些元素根本不能移动，就能避免由于窗口扩展带来的很多问题。    
 
 
@@ -1410,7 +1428,7 @@ A:
 }
 ```
 
-会锁定页面中内容区的宽度，不过会将它在浏览器中居中。  
+会锁定页面中`内容区的宽度`，不过会将它在浏览器中`居中`。  
 - 指定内容区宽度为 auto 时，浏览器会根据需要扩展内容区。外边距为 auto 时，浏览器会确定正确的外边距是多少，另外还会确保左和右外边距相同，所以内容会居中。Q: 不记得，回头找找。
 
 `凝胶的本质`：是设置页面内容区的`固定宽度`和`自适应外边距`。  
@@ -1426,6 +1444,7 @@ A:
 }
 ```
 一个元素绝对定位时，  
+- `参照物`：离它最近的父元素（通常是`<html>`也就是整个`页面`,也可以指定）p536
 - 浏览器首先要做的是`将它从流中完全删除`，
 - 然后浏览器将这个元素放置在top和right属性指定的位置上
 - 对其他元素没有任何影响 （如果是浮动元素，流中的元素会调整它们的内容来适应浮动元素的边界）  
@@ -1450,7 +1469,8 @@ A:
   - left 10% : 距浏览器窗口左边(浏览器宽度800px * 10% = 80px)的位置
 - 可以用百分比指定宽度：主内容和边栏大小更灵活。在两栏和三栏布局中常用。  
 
-`绝对定位`的本质：页面坐标系的定位。与
+`绝对定位`的本质：页面坐标系的定位。（或相对父元素的定位：但这又跟相对定位一样了吧？Q）
+父元素：似乎不是 parant，而是 containing. p538 15.
 
 ### CSS 表格显示（布局方式）
 允许你在一个有行和列的表格中显示块元素。  
@@ -1461,15 +1481,76 @@ A:
   - 如果是 div， 单行可用 id 标识; 多行可用 class 标识。
 - 表格会自动扩展来适应单元格宽度和高度
 ##### 步骤
-- 在html里增加 表格div 
-- 在html里增加 行div
-- 把相关内容的div放进行div
-- 在css建立 表格div对应规则
-- 在css建立 行div对应规则
+- 在html里增加 `表格div`
+- 在html里增加 `行div`
+- 把相关内容的div放进`行div`
+- 在css建立`表格div` 对应规则
+- 在css建立 `行div` 对应规则
 - 调整外边距
 Q: 为什么不用设置宽度？   
-[HTML](11-layout-and-positioning/tabledisplay/index.html)
-[CSS](11-layout-and-positioning/tabledisplay/starbuzz.css)
+
+```html
+html
+...
+<!--页眉在外-->
+<div id="tableContainer">
+  <div id="tableRow">
+    <div id="main">
+      ...
+    </div>
+    <div id="sidebar">
+      ...
+    </div>
+  </div>
+</div>
+<!--页脚在外-->
+```
+```css
+css
+#tableContainer {
+  display:table;
+  border-spacing: 10px; /*为表格中的单元格增加10px的边框间距*/
+}
+
+#tableRow {
+  display: table-row;
+}
+
+#main {
+  display: talbe-cell;  /*表格中的单元格*/
+  background:       #efe5d0 url(images/background.gif) top left;
+  font-size:        105%;
+  padding:          15px;
+  /*margin: 0px 10px 10px 10px; 有上面的 border-spacing就不需要外边距*/
+  vertical-align: top;  /*相对于单元格上边对齐*/
+}
+
+#sidebar {
+  display: table-cell;
+  background:       #efe5d0 url(images/background.gif) bottom right;
+  font-size:        105%;
+  padding:          15px;
+  /*margin: 0px 10px 10px 10px; 删除外边距右下左*/
+  vertical-align: top;
+}
+
+```
+
+同时，去掉 页眉和页脚朝向表格的外边距，因为有 border-spacing 在表格内产生间距就可以了。  
+```css
+css
+#header {
+  /*margin: 10px;*/
+}
+
+#hfooter {
+  /*margin: 10px;*/
+}
+
+```
+
+
+Q: 为什么 main 和 sidebar 都不需要设置宽度？ 是否表格自动按元素内容调整？
 
 #### display 属性 
 - 表格值：
@@ -1481,6 +1562,9 @@ Q: 为什么不用设置宽度？
 为表格中的`单元格`增加边框间距，可以看作是常规元素的外边距。
 但是，
 这个间距，不会跟其他元素的折叠。P517 (应该是因为，border-spacing是表格内部的空间，因为它是为表格中的单元格增加的)
+效果如图：
+![](Note-Images/tableLayout-withoutBorderSpacing.jpg)
+
 #### vertical-align 
 单元格对齐
 - top
@@ -1609,7 +1693,7 @@ Q: 为什么不用设置宽度？
 
 ```css
 #coupon {
-  position: fixed;  /*固定定位*/
+  position: fixed;  /*固定定位,相对窗口*/
   top:300px;
   left:0px;
 }
@@ -1636,24 +1720,70 @@ Q: 为什么不用设置宽度？
 将元素放在某个块元素中。  
 `相对`的意思，是与某个元素绑定，位置属性是相对页面而言，与绝对定位相同。
 
+参照的对象：所在块元素的空区。
 
-[ TBC: ]
-|对比|浮动|冻结|凝胶|绝对定位|固定定位|相对定位|
-|-|-|-|-|-|-|-|
-|参照|页面|元素|元素+页面|页面|窗口|元素+窗口|
-|属性|float|width|width+margin|position|position|position|
-|与流的关系|被删除+被围绕||-|-|-|-|
+把 coupon div 放在 elixirs div 中，
 
-| 代码例 | 非函数式定义: (x, y)| 数据 |定义 + 调用方式 |
-| :-: | :--: | -- | - |
+```html
+ <div id="drinks">
+   ...
+
+     <div id="coupon">
+            <a href="freecoffee.html" title="Click here to get your free coffee">
+              <img src="images/ticket.gif" alt="Starbuzz coupon ticket">
+            </a>
+          </div>
+      </div>
+```
 
 
 ```css
 #coupon {
   position: relative;  /*定位*/
-  top:25px;
+  top:25px;   /*elixirs下面的25px的地方：相当于，在其空白区域里的顶端的top 25px,不是页面的顶端，也不是窗口的顶端，也不是块元素的顶端*/
   left:-90px;
 }
 ```
 
+##### relative 定位时，具体位置的对比分析：
+
+- 当 `top:0px;`时，  
+coupon 上方还有一些空白，且不是 elixirs div的内边距。  
+如下图: padding全部为零，文本左边无边距。  
+可用 [index-relative.html](11-layout-and-positioning/tabledisplay/index-relative.html) 和 [starbuzz-relative.css](11-layout-and-positioning/tabledisplay/starbuzz-relative.css) 测试。
+
+![分析图](Note-Images/position-relative-parantEl-paddingIsZero.jpg)  
+
+- 当`top:55px;`时,如下图，55px 是指 coupon 图片外缘与外界的距离。
+- 当`top:-50px;`时，如下图, 盖住了倒数第一行文本，从0px开始包含空白的区域。
+![分析图](Note-Images/position-relative-topMinus50px.jpg)
+
+
+- `left:-90px;`: 图片中两个箭头的长度比，与90和55的长度相当，约为0.67。
+![分析图](Note-Images/position-relative-px-comparison.jpg)
+
+[ TBC: ]
+
+|对比|浮动|冻结|凝胶|绝对定位|固定定位|相对定位|
+|--|--|--|--|--|--|--|
+|参照|页面|页面|页面|页面（父元素 html）|窗口|元素的`空白区域`|
+|属性|float|width|width+margin|position|position|position|
+|与流的关系|被删除+被围绕|顺序一致|顺序一致|被删除|顺序一致|顺序一致|  
+
+##### 绝对定位：
+参照父元素。  
+在其父元素中，可以指定任何位置;而不受内部其他元素的限制,比如可以一半覆盖在内部元素上面。  
+##### 固定定位：  
+参照窗口。  
+可否像绝对定位那样，改变相对其他参照？  
+##### 相对定位：
+参照父元素的`空白区域`。  
+
+
+#### 关于动画
+- CSS3 基本动画：变换和过渡特性
+- CSS 做不到，用 JS 
+
+##### 其他
+浏览器窗口的另一个名字：viewpoint
 
