@@ -1543,7 +1543,7 @@ css
   /*margin: 10px;*/
 }
 
-#hfooter {
+#footer {
   /*margin: 10px;*/
 }
 
@@ -1767,7 +1767,7 @@ coupon 上方还有一些空白，且不是 elixirs div的内边距。
 |对比|浮动|冻结|凝胶|绝对定位|固定定位|相对定位|
 |--|--|--|--|--|--|--|
 |参照|页面|页面|页面|页面（父元素 html）|窗口|元素的`空白区域`|
-|属性|float|width|width+margin|position|position|position|
+|属性|float+width|width|width+margin|position|position|position|
 |与流的关系|被删除+被围绕|顺序一致|顺序一致|被删除|顺序一致|顺序一致|  
 
 ##### 绝对定位：
@@ -1785,5 +1785,72 @@ coupon 上方还有一些空白，且不是 elixirs div的内边距。
 - CSS 做不到，用 JS 
 
 ##### 其他
-浏览器窗口的另一个名字：viewpoint
+浏览器窗口的另一个名字：viewport
 
+# 12. HTML5 标记
+
+- `<header>`
+- `<footer>`
+- `<aside>`
+- `<section>`
+- `<article>`
+- `<video>`
+- `<nav>`
+- `<time>`
+
+查询浏览器是否支持 html5 ：[链接](http://caniuse.com/#search=new%20elements)
+
+#### 修改1
+```html
+html
+  <header> <!--<div id="header">-->
+   ...
+  </header>
+
+  <aside> <!--<div id="sidebar">-->
+   ...
+  </aside>
+
+  <footer> <!--<div id="footer">-->
+   ...
+  </footer>
+
+```
+
+```css
+css
+
+header {
+...
+}
+
+header img#headerSlogan {   
+...
+}
+```
+
+#### 修改2
+
+```html
+html
+
+ <section id="drinks"><!--<div id="drinks">-->
+   ...
+ </section>
+
+ <section id="main"><!--<div id="main">-->
+   ...
+ </section>
+
+```
+
+```css
+css:
+
+section#drinks {
+...
+}
+
+section#main {       
+...
+}
