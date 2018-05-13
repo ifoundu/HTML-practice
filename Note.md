@@ -416,7 +416,7 @@ html 可以提前告诉浏览器图像的大小，提前对页面进行布局。
 
 #### 使用缩略图
 - 新建文件夹
-- 另存缩略图（ svae for web )，放在新建文件夹里
+- 另存缩略图（ save for web )，放在新建文件夹里
 - 建立缩略图链接
 - 建立原图 html , 注意相对路径 <a href="./5. Add images/mypod/html/applestore.html">文本</a>
   或省略此步
@@ -1792,15 +1792,17 @@ coupon 上方还有一些空白，且不是 elixirs div的内边距。
 - `<header>`
 - `<footer>`
 - `<aside>`
-- `<section>`
-- `<article>`
+- `<section>` ： 把相关内容分组在一起
+- `<article>` ： 用来包含独立的内容
 - `<video>`
 - `<nav>`
 - `<time>`
 
 查询浏览器是否支持 html5 ：[链接](http://caniuse.com/#search=new%20elements)
 
-#### 修改1
+另,对比：`<div>`：不相关的内容组织在一起 p565
+
+#### 修改页眉、页脚和边栏
 ```html
 html
   <header> <!--<div id="header">-->
@@ -1854,3 +1856,121 @@ section#drinks {
 section#main {       
 ...
 }
+```
+
+Q: 为什么 12 里的blog.html img src用绝对链接不成功？？
+https://github.com/bethrobson/Head-First-HTML/blob/master/chapter12/starbuzz/images/award.gif
+
+
+### 建立博客页面的 CSS
+- 创建文件 index.html 的副本，将 main section 替换为一个 blog section，如下：
+
+```html
+html
+
+  <body>
+    <header class="top">
+    </header>
+
+	<div id="tableContainer">
+	<div id="tableRow">
+
+	<section id="drinks">
+		
+	</section>
+
+	<section id="blog">    <!-- blog -- >
+	<article>
+	<header>
+		<h1>Starbuzz meets social media</h1>
+		<time datetime="2012-03-12">3/12/2012</time>
+	</header>
+	<p>
+	</p>
+	
+	</article>
+
+	<article>
+	<header>
+		<h1>Starbuzz uses computer science</h1>
+		<time datetime="2012-03-10">3/10/2012</time>
+	</header>
+	<p>
+	</p>
+	</article>
+
+	<article>
+	<header>
+		<h1>Most unique patron of the month	</h1>
+		<time datetime="2012-02-18">2/18/2012</time>
+	</header>
+	<p>
+	</p>
+	</article>
+	</section>
+
+    <aside>
+    </aside>
+
+	</div> <!-- tableRow -->
+	</div> <!-- tableContainer -->
+
+    <footer>
+    </footer>
+
+  </body>
+
+```
+
+
+- 博客页，可与主页，共享一个 CSS 文件 
+  - section#blog 和 主页的 section#main 虽在不同页面，但共享规则;
+  - h1 等规则共享。其他左右两栏和页眉页脚内容一样，样式也就一样。blog里的article只是结构分区，没有特殊样式规则，继承h1等规则。
+```css
+css
+/* added section#blog for blog */
+section#main, section#blog {
+  display: table-cell;
+  background:       #efe5d0 url(../11-layout-and-positioning/tabledisplay/images/background.gif) top left;
+  font-size:        105%;
+  padding:          15px;
+  vertical-align: top;
+}
+
+```
+
+### time 元素
+Q: 作用到底是什么？不就是个格式吗？ p565
+#### datetime 属性
+```html
+<time datetime="2012-02-18">2/18/2018</time>
+```
+
+`2012-02-18`是指定日期的官方internet格式，包含日、月和年。  
+使用官方格式表示日期和时间的另外一些方法。  
+2012-02  
+2012  
+2012-02-18 09：00  `24小时制`
+2012-02-18 18：00  
+05：00  
+2012-02-18 05：00Z   "Z"表示 UTC / GMT 时间  
+Q: 如果元素内容没有采用官方internet日期/时间格式来写，就`必须`有datetime属性。为什么？是说没有按照以上格式写就必须有datetime？
+
+
+```html
+	<article>
+	<header>
+		<h1>Most unique patron of the month	</h1>
+		<time datetime="2012-02-18">2/18/2012</time>
+	</header>
+	<p>
+	</p>
+	</article>
+```
+
+- 在各个标题下增加一个 time 元素
+- time 元素的内容 `2/18/2012` 是博客帖子的日期（采用美国写法，月在前）。也可以写作 March 10,2012。  
+
+##### 备用
+在 html5 之前，日期往往可以采用自由的方式创建，增加日期可以根本不做标记，或者使用一个 span 甚至 p 来标记。
+
