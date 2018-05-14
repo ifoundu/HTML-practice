@@ -1788,7 +1788,12 @@ coupon 上方还有一些空白，且不是 elixirs div的内边距。
 浏览器窗口的另一个名字：viewport
 
 # 12. HTML5 标记
+## 作用
+更明智地确定如何处理页面的不同部分。  
+对开发人员来说，页面(文本)更容易理解：为页面增加某种语义含义 （Q: 是否就是更像英语，更易理解？）  
+p572  
 
+## 增加的标记：
 - `<header>`
 - `<footer>`
 - `<aside>`
@@ -1974,3 +1979,56 @@ Q: 如果元素内容没有采用官方internet日期/时间格式来写，就`�
 ##### 备用
 在 html5 之前，日期往往可以采用自由的方式创建，增加日期可以根本不做标记，或者使用一个 span 甚至 p 来标记。
 
+### 如何增加更多 header 元素
+- 放置 header 包含标题和时间，为每个博客区块中的每个文章都增加一个 header
+```html
+	<article>  
+	<header> <!--增加 标题 和 时间-->
+		<h1>Most unique patron of the month	</h1>
+		<time datetime="2012-02-18">2/18/2012</time>
+	</header> <!-- -->
+	<p>
+	</p>
+	</article>
+```
+- HTML/CSS: 区分页眉 header 和 博客区块中的 header 的表现：让博客中的 header 仍采用默认样式。
+（ h1 的规则，边栏也是这个规则。但是问题是，
+Q: 采用 h1 的规则，`算是继承吗？`继承应该是采用父元素的规则，h1算不算父元素的规则？书里没有直接说是继承，只说是`采用默认规则`）
+
+```html
+    <header class="top">
+    ...
+    </header>
+```
+
+ ```css
+ header.top {   
+  background-color: #675c47;
+  margin: 10px 10px 0px 10px;
+  height:           108px;
+}
+
+header.top img#headerSlogan {  /*这个选择器不增加 .top 也能正确选择元素*/
+	float: right;
+}
+```
+
+section 和 article 中增加 header 的目的：  
+- 使标题、时间 和 作者等不同元素能组合在一起来指定样式，把相关但不同比重的内容组织在一起。  （自己总结）
+- 可读性更好 p572
+- 结构上是否更好安排，像页面的 header ，待定。Q
+
+
+### 创建导航
+- 创建链接
+- 把锚包围在无序列表中，把它们当作一组列表项
+
+
+```html
+html
+<a href="index.html">HOME</a>
+<a href="blog.html">BLOG</a>
+<a href="">INVENTIONS</a>
+<a href="">RECIPES</a>
+<a href="">LOCATIONS</a>
+```
