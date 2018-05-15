@@ -2022,13 +2022,104 @@ section 和 article 中增加 header 的目的：
 ### 创建导航
 - 创建链接
 - 把锚包围在无序列表中，把它们当作一组列表项
-
+- 使用了一个类来标识被选中的一项
+- 加入导航
+  -  把列表项插入到 blog.html 文件中页眉的下面( 在home项使用 class="selected" )
+  -  把列表项插入到 blog.html 文件中页眉的下面( 在blog项使用 class="selected" )
 
 ```html
 html
-<a href="index.html">HOME</a>
-<a href="blog.html">BLOG</a>
-<a href="">INVENTIONS</a>
-<a href="">RECIPES</a>
-<a href="">LOCATIONS</a>
+<body>
+  <header class="top">
+    ...
+  </header>
+  <ul>
+   <li><a href="index.html">HOME</a></li>
+   <li class="selected"><a href="blog.html">BLOG</a></li>
+   <li><a href="">INVENTIONS</a></li>
+   <li><a href="">RECIPES</a></li>
+   <li><a href="">LOCATIONS</a></li>
+ </ul>
+...
+</body>
+```
+- 把 列表项的 css 规则增加到文件的最后。
+
+```css
+css
+ul {
+  background-color: #efe5d0;
+  margin: 10px 10px 0px 10px;  /*下边距不用，因tableContainer带有border-spacing*/
+  list-style-type: none; /*删除列表项的项目符号*/
+  padding: 5px 0px 5px 0px;
+}
+ul li {
+  display: inline;
+  /*将列表项的显示从“block”改为“inline”，所以现在列表项的前后不再有回车，它们会像常规的内联元素一样在页面上流入一行*/
+  padding: 5px 10px 5px 10px;  
+}
+
+ul li a:link, ul li a:visited {
+  color: #954b4b;
+  border-bottom:none;
+  font-weight:bold;
+}  /* 覆盖之前的<a>的css规则，并且 link 和 visited 状态是一样的*/
+
+ul li.selected {
+  background-color: #c8b99c;
+}
+```
+Q: inline，block 是什么？ 内联 和 块？应该是了。  
+Q: 回车？ 指的是书里之前的块元素的“换行”吧。 相当于把`竖的列表`改成`横的`列表。
+
+- 增加 nav 元素： index(home)/blog 都增加。使`导航条的结构语法和规则语法`更特定，不影响其他列表项。相当于用 class/id的作法，只是`再特定一些`。
+
+```html
+html
+<body>
+  <header class="top">
+    ...
+  </header>
+
+  <nav>  <!--增加-->
+  <ul>
+   <li><a href="index.html">HOME</a></li>
+   <li class="selected"><a href="blog.html">BLOG</a></li>
+   <li><a href="">INVENTIONS</a></li>
+   <li><a href="">RECIPES</a></li>
+   <li><a href="">LOCATIONS</a></li>
+ </ul>
+...
+ </nav>  <!--增加-->
+
+</body>
+```
+
+- 修改 css :
+```css
+css
+
+nav {           /*增加 nav */ /*将背景色和外边距属性，移到 nav 里*/
+  background-color: #efe5d0; 
+  margin: 10px 10px 0px 10px;  
+}
+
+nav ul {  /*增加 nav */
+  margin:0px; /* ul 本身有默认的外边距，在 nav 中设定后就要去掉 ul 的外边距 */
+  list-style-type: none; 
+  padding: 5px 0px 5px 0px;
+}
+nav ul li {  /*增加 nav */
+  display: inline;
+  padding: 5px 10px 5px 10px;  
+}
+
+nav ul li a:link, nav ul li a:visited {   /*增加两个 nav */
+  color: #954b4b;
+  border-bottom:none;
+  font-weight:bold;
+} 
+nav ul li.selected {  /*增加 nav */
+  background-color: #c8b99c;
+}
 ```
