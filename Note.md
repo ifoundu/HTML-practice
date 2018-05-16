@@ -2123,3 +2123,141 @@ nav ul li.selected {  /*增加 nav */
   background-color: #c8b99c;
 }
 ```
+
+### 为博客增加 视频
+
+- 增加 article 元素
+- 增加 `video 元素`， 
+  （Chrome默认点击才播放）
+
+
+
+布尔属性，没有值，有就会出现控件或功能，没有就不会。
+
+```html
+html 
+
+<article>
+		<header>
+			<h1>Starbuzz launches...Tweet Sip</h1>
+			<time datetime="2012-05-03">5/3/2012</time>
+		</header>
+		<p>
+			As promised,today I'm pround to announce that Starbuzz Coffee is launching the Tweet Sip cup,a special Starbuzz Coffee cup that tweets each you take a sip!Check out my video of our new invention.
+		</p>
+		<video controls autoplay width="512" height="288" src="../../HTML-Practice-BookFiles/Head-First-HTML/chapter12/starbuzz/video/tweetsip.mp4"></video> 
+
+  </article>
+  ```
+
+video 相关属性：
+- `width` 和 `height` : 视频显示区/视窗的宽度和高度。
+  - 视频 和 poster 图像，都会缩放，保持原比例（Chrome）。
+  - 上下黑边：letter-boxing; 左右黑边：pillar-boxing
+- `src` ： URL 指向源文件，
+- `controls` 属性：布尔属性;不同浏览器提供的控件有所不同。
+- `autoplay` 属性：布尔属性;一旦有了足够的数据就开始播放视频。
+- `poster`属性：poster="images/poster.png" 视频未播放时就会显示这个图像，代替黑屏。如果图像背景透明，显示有可能是透明的;用页眉图像试过Chrome。
+- `loop` ：视频结束播放后自动重新开始播放（循环）
+- `preload`：通常用于`细粒度`地控制视频如何加载，来实现优化。大多数情况下，浏览器会根据是否设置autoplay以及用户的带宽来选择加载多少视频。
+  - 可以覆盖这种设置，将 preload 设置为“none”
+  - metadata：下载视频`元数据`，但不下载`视频内容` （Q: 有什么差别？）
+  - auto: 让浏览器决定。
+
+<Head First HTML5 Programming>: 定制控件
+
+### 视频格式
+对于如何支持你的用户能够做出自己的决定。  
+视频文件 = 视频部分 + 音频部分，每个部分都使用一种特定的编码类型来编码（这样可以缩小数据大小，并能更高效地播放）。  
+不同浏览器使用不同的编码， H.264, VP8, 开源Theora。  
+而且，包含视频和音频编码的文件（称为容器）也有自己的格式和格式名。
+
+比如：  
+- WebM 容器： Vp8 视频编码 + Vorbis 音频编码; .webm
+- MP4 容器： H.264 视频编码 + AAC 音频编码; .mp4
+- Ogg 容器：Theora 视频编码 + Vorbis 音频编码; .ogv
+
+HTML5规范允许采用任何视频格式。具体支持哪些格式由浏览器实现来确定。  
+
+浏览器对视频格式支持的情况：  
+可查询： 
+- http://en.wikepedia.org/wiki/html5_video 
+- http://caniuse.com/#search=video  可用  
+
+### 处理视频格式
+- 决定使用多少种格式，取决于你的用户 
+- 在 video 元素中可以对应每种格式分别使用一个 `source 元素`，这样能提供一`组`视频，每个视频分别有自己的格式，可以`让浏览器选择`它支持的第一种格式。如下： 
+注意： src 是属性， source 是元素。
+
+```html
+html 
+
+<video controls autoplay width="512" height="288"  > 
+  <!--删除 src 属性-->
+  <source src="....mp4">   <!--从上向下查找，浏览器会加载视频文件的元数据，查看能不能播放这个视频-->
+  <source src="....webm">
+  <source src=".....ogv">
+  <p>Sorry,your browser doesn't support the video element</p> <!--如果浏览器不支持视频-->
+</video>
+```
+
+#### 一些概念
+- 容器(container)：用来包装视频、音频和元数据信息的文件格式。常用的容器格式包括：MP4、WebM、Ogg和 Flash Video。
+- 编解码器（codec）是用来对一种特定视频或音频编码完成编码和解码的软件。流行的 Web 编解码器包括： H.264、VP8、Theora、AAC 和 Vorbis。
+- 要由浏览器决定可以对哪种格式的视频解码...如果你想支持所有视频，就需要多种编码。
+
+### 更具体地指定视频格式
+提供更多视频文件的相关信息，以便浏览器在播放前识别。  
+
+```html
+html
+<source src="video/tweetsip.ogv" type='video/ogg; codecs="theora,vorbis"'>
+```
+
+- src 使用的文件：容器
+- codes 参数：指定使用哪个编解码器对视频和音频编码，来创建编码的视频文件。code=""  
+  未知参数时可以省略。
+- type ： 可选属性，为浏览器提示文件的类型。type='' 单引号
+- MIME 类型： 如video/ogg。指定了容器格式。
+
+更新 source 元素
+```html
+html 
+
+<video controls autoplay width="512" height="288"  > 
+  <source src="....mp4" type='video/mp4; codecs="avc1.42E01E,mp4a.40.2"'>
+  <source src="....webm" type='video/webm; codecs="vp8, vorbis"'>
+  <source src=".....ogv" type='video/ogg; codecs="theora, vorbis"'>
+  <p>Sorry,your browser doesn't support the video element</p> <!--如果浏览器不支持视频-->
+</video>
+```
+
+mp4的编解码器比另外两种更为复杂，因为h.264支持多种“等级 profile”，对应不同使用情况（如高带宽和低带宽）会有不同的编码。 
+`type 参数`使用的各种选择：http://wiki.whatwg.org/wiki/Video_type_parameters
+
+### 一些些
+- 容器格式 或者 编解码器类型，实际上要由浏览器制造商来决定支持什么和不支持什么。
+- 对自己的视频编码： p591
+- 全屏播放：有些浏览器（例如，平板电脑上的浏览器）提供了一个全屏控件。除了基本的播放外，可能会出于安全原因对视频处理有所限制。
+
+- 如果需要 Flash 视频，使用 object 元素，在 source 下面，作为备用。
+```html
+html
+<video poster="video.jpg" controls>
+  <source src="video.mp4">
+  <source src="">
+  <source src="">
+  <object>...</object>
+</video>
+```
+
+### 更多元素：自己尝试
+-  `<mark>` 突出显示某些文本
+-  `<audio>` 包含声音
+-  `<progress>` 显示任务的完成进度
+-  `<meter>` 显示某个范围的度量，比如一个从0到212度的温度计
+-  `<canvas>` 在页面中显示用 `JS` 绘制的`图像和动画`
+-  `<figure>` 定义类似照片、图表甚至代码清单等独立的内容
+
+
+finally finished such a boring chapter.
