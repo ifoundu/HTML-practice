@@ -44,7 +44,7 @@ section#drinks {
 /* added section#blog for blog */
 section#main, section#blog {
   display: table-cell;
-  background:       #efe5d0 url(https://github.com/bethrobson/Head-First-HTML/tree/master/chapter12/starbuzz/images/background.gif) top left;
+  background:       #efe5d0 url(../11-layout-and-positioning/tabledisplay/images/background.gif) top left;
   font-size:        105%;
   padding:          15px;
   vertical-align: top;
@@ -52,7 +52,7 @@ section#main, section#blog {
 
 aside {
   display: table-cell;
-  background:       #efe5d0 url(https://github.com/bethrobson/Head-First-HTML/tree/master/chapter12/starbuzz/images/background.gif) bottom right;
+  background:       #efe5d0 url(../11-layout-and-positioning/tabledisplay/images/background.gif) bottom right;
   font-size:        105%;
   padding:          15px;
   vertical-align: top;
@@ -92,30 +92,26 @@ a:visited {
   border-bottom:    thin dotted #675c47;
 }
 
+nav {           /*增加 nav */ /*将背景色和外边距属性，移到 nav 里*/
+  background-color: #efe5d0; 
+  margin: 10px 10px 0px 10px;  
+}
 
-nav {
-    background-color: #efe5d0;
-	margin: 10px 10px 0px 10px;
+nav ul {  /*增加 nav */
+  margin:0px; /* ul 本身有默认的外边距，在 nav 中设定后就要去掉 ul 的外边距 */
+  list-style-type: none; 
+  padding: 5px 0px 5px 0px;
 }
-nav ul {
-	margin: 0px;
-	list-style-type: none;
-	padding: 5px 0px 5px 0px;
+nav ul li {  /*增加 nav */
+  display: inline;
+  padding: 5px 10px 5px 10px;  
 }
-nav ul li {
-	display: inline;
-	padding: 5px 10px 5px 10px;
-}
-nav ul li a:link, nav ul li a:visited {
-	color: #954b4b;
-	border-bottom: none;
-	font-weight: bold;
 
-/*
-	text-shadow: 1px 1px 3px #e2c2c2; 
-	text-transform: uppercase;
-*/
-}
-nav ul li.selected {
-	background-color: #c8b99c;
+nav ul li a:link, nav ul li a:visited {   /*增加两个 nav */
+  color: #954b4b;
+  border-bottom:none;
+  font-weight:bold;
+} 
+nav ul li.selected {  /*增加 nav */
+  background-color: #c8b99c;
 }
