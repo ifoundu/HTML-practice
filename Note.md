@@ -2261,3 +2261,212 @@ html
 
 
 finally finished such a boring chapter.
+
+# 13 表格
+## 创建表格
+- 创建独立的 html 文件
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    td,
+    th {
+      border: 1px solid black;
+    }
+  </style>
+  <title>Testing Tony's Travels</title>
+</head>
+
+<body>
+  <table>
+    <tr>   <!-- tr: 行 （table row）-->
+      <th>City</th>  <!-- th: 表头 （好像是 table header）-->
+      <th>Date</th>
+      <th>Temperature</th>
+      <th>Altitude</th>
+      <th>Population</th>
+      <th>Diner Rating</th>
+    </tr>
+    <tr>
+      <td>Walla Walla, WA</td>  <!-- td: 单元格 --> 
+      <td>June 15th</td>
+      <td>75</td>
+      <td>1,204 ft</td>
+      <td>29,686</td>
+      <td>4/5</td>
+    </tr>
+    <tr>
+      <td>Magic City, ID</td>
+      <td>June 25th</td>
+      <td>74</td>
+      <td>5,312 ft</td>
+      <td>50</td>
+      <td>3/5</td>
+    </tr>
+  </table>
+</body>
+
+</html>
+```
+
+把表头放在表格左侧
+```html
+<table>
+  <tr>
+    <th></th> <!--表头-->
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th></th> <!--表头-->
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+```
+
+#### HTML 表格 和 CSS 表格的异同
+（自己总结，跟书里的不一样）
+html的表格和CSS 表格都需要在HTML文件里使用关于表格的标记。因为要区分两种表格形式，标记是不一样的。但原理是一样的，都是在html里建立表格。html 表格 使用 table,tr,th,td。 CSS 表格在html里使用 div 和 id，依靠 CSS 规则来表现表格。虽然在 html 用了不同的标记，但可以看到只是 html 表格的标记特定化了。  
+
+Html 的表格里的数据，像 excel 里的数据，是细化的、分类后的`颗粒数据`，之间是有`紧密的内在逻辑关系`的。一个城市列表，所到城市，所在日期，城市在当天的日期。 这些数据颗粒之间的逻辑关系，决定了它们的相互位置。这使数据间的`位置关系` 和 `逻辑关系`都是紧密的。表格的存在就是为了在结构上`集中`这些数据。
+
+布局表格里的内容，是相关数据集合的`大片数据`，表格的存在是为了让这些内容显示在`分散`到不同的区域。
+比如每天的行程这类描述性的内容汇总在 section里。而旁边再放置旅行中携带的相关物件。行程和物件都是旅行相关的，都是很多相关数据的集合。而为了突出这些内容的重点，要把它们分开。由于分散，在样式上的选择就比较自由。这样，在表格的存在基础上更多地趋向样式的表现。
+
+
+总之， 
+原理是一样的，只是侧重点不一样。而基于html负责结构而css负责样式，把这两种表格的使用分开。  
+`html 表格`是利用位置/结构，`集中`表示小颗粒数据之间的逻辑关系。`重点在于数据的结构`。表格样式是次要的。  所以采用主要采用 html 。
+`布局`是利用位置/结构，将大片数据`分开`。数据分开后样式的发挥空间较大。于是，`重点在于样式表现`，所以主要采用 CSS。`
+
+
+#### 表格标题
+
+```html
+html
+<table>
+  <caption>
+  ... 标题 ...
+  </caption>
+  <tr>
+  ...
+  </tr>
+```
+
+### 为表格增加样式
+- 把 table.html 里的表格复制到 index.html
+- 增加规则，如下：
+
+```css
+table {
+  margin-left:  20px; /* 等于 margin:0px 20px 0px 20px; */
+  margin-right: 20px;
+  border: thin solid black;
+  caption-side: bottom;  /* 标题位置 */
+}
+
+td, th {
+  border: thin dotted gray;  
+  padding:  5px;   /* 表头和单元格`元素`的内边距 */
+}
+
+caption {
+  font-style: italic;
+  padding-top:  8px;   /* 标题元素上方的内边距 */
+}
+```
+
+#### 单元格盒模型
+- 内边距：padding 同一般盒模型
+- 外边距：border-spacing 与表格布局一样：边框间距  为所有单元格设置一个共同的间距。
+ （再次证明 与表格布局在原理上是一样的）
+  可以使垂直和水平的间距不一样，如下
+  ```css
+  border-spacing: 10px 30px;  /*水平 垂直*/
+  ```
+- 折叠边框： `bording-collapse:collapse;`
+- 单元格文本对齐： 原理还是盒子的文本对齐 text-align
+  - td 中增加类
+  - 规则
+
+```html
+        <tr>
+          <td>Walla Walla, WA</td>
+          <td class="center">June 15th</td>
+          <td class="center">75</td>
+          <td class="right">1,204 ft</td>
+          <td class="right">29,686</td>
+          <td class="center">4/5</td>
+        </tr>
+        <tr>
+          <td>Magic City, ID</td>
+          <td class="center">June 25th</td>
+          <td class="center">74</td>
+          <td class="right">5,312 ft</td>
+          <td class="right">50</td>
+          <td class="center">3/5</td>
+        </tr>
+```
+
+```css
+.center {
+  text-align:center;
+}
+
+.right {
+  text-align:right;
+}
+```
+
+- 为表头增加颜色
+```css
+th {
+  background-color: #cc6600;
+}
+```
+
+- 为表行增加颜色
+  - 为行增加 类
+```html
+    <tr class="cellcolor">
+    ...
+    </tr>
+```
+ - 增加 规则
+```css
+.cellcolor {
+  background-color: #fcba7a;
+}
+```
+#### 伪类 nth-child
+nth-child的状态是一个元素相对于它的兄弟元素的数字顺序。
+- even : odd
+- 2n : 2n+1
+
+```css
+p:nth-child(even) {
+  background-color: red;
+}
+
+p:nth-child(odd) {
+  background-color: green;
+}
+```
+
+```css
+p:nth-child(2n) {
+  background-color: red;
+}
+
+p:nth-child(2n+1) {
+  background-color: green;
+}
+```
+
+- 注意把 表头 th 的规则放在 tr:nth-child 所在规则的下方，th 的规则才不会被覆盖。也可以说，是让 th 可以覆盖 tr 的规则。
+
