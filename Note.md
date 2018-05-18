@@ -2584,7 +2584,7 @@ li {
   - 文本会在标记下回绕（wrapping）
   - 列表项`左外边框`从`标记`左边算起，因此，`标记`离窗口左边较`远`
 
-  ```css
+```css
 li {
   list-style-position:  outside;
 }
@@ -2598,3 +2598,102 @@ li {
 ### 单元格对齐
 - text-align: 上面讲过，利用类
 - vertical-align: 书中未要求操作，原理应该与text-align一样。练习 text-align 时，Chrome 的垂直对齐默认是居中。
+
+# 14 表单
+`表单`是一个包含输入域的 Web 页面，允许用户输入信息。提交表单时，这些信息会打包并发送到一个 Web 服务器，由一个服务器`脚本`处理。处理完成时，会`得到另一个 Web 页面`作为响应。
+
+### 表单在浏览器中如何工作
+#### 浏览器加载页面
+浏览器要加载页面的 HTML，遇到`表单元素`时，它会在页面上`创建控件`，允许用户`输入数据`。
+#### 输入数据
+使用控件输入数据时，取决于`控件的不同类型`，可以有`多种不同的输入方式`。可以在文本控件中输入一行文本，或者可以在复选框控件中单击一个选项。
+#### 提交表单
+单击`提交按钮`，`提交`这个表单。浏览器会相应地`打包所有数据`，并把这些数据`发送`到`服务器`。
+#### 服务器响应
+一旦服务器等到表单数据，会把这些数据传递给适当的服务器脚本进行处理。处理后得到一个全新的 HTML 页面，返回给浏览器。
+
+```html
+ <body>
+    <form action="http://wickedlysmart.com/hfhtmlcss/contest.php"
+      method="POST">
+    <p>Just type in your name(click Submit) to enter the contest:<br>
+
+      First name:<input type="text" name="firstname" value=""><br>
+      Last name:<input type="text" name="lastname" value=""><br>
+      <input type="submit">
+
+    </p>
+    </form>
+    
+  </body>
+```
+
+### form 元素如何工作
+
+```html
+<form action="http://wickedlysmart.com/hfhtmlcss/contest.php" method="POST">
+     <!--表单的所有内容-->
+    </form>
+```
+
+- action 属性： 
+  - 包含 Web 服务器的 URL - http://wickedlysmart.com
+  - 脚本所在的文件夹 - hfhtmlcss 
+  - 将处理表单数据的服务器脚本的文件名
+- method 属性：确定表单数据如何发送到服务器
+  - 最常用的方法：POST
+
+### 表单里可以有什么？
+#### `<input>`控件
+##### 单行控件
+```html
+<input type="text" name="fullname">
+```
+输入一行文本。有一些可选属性，允许你为这个控件设置最大字符个数和宽度。
+  - type="text" : 创建一个单行控件
+  - name="" : 元素名，服务器脚本将使用这个元素名
+
+是一个 void 元素。
+
+##### 提交按钮
+```html
+<input type="submit">
+```
+创建提交按钮，允许提交表单。点击这个按钮时，浏览器会把表单发送到服务器脚本进行处理。
+  - 默认标签：Submit / Submit Query
+  - 可改标签
+
+##### 单选钮输入
+创建包含多个按钮的控件，但是一次只能选择其中一个按钮。
+```html
+<input type="radio" name="hotornot" value="hot">
+<input type="radio" name="hotornot" value="not">
+```
+  - 每个选项使用一个 radio input
+  - 与一组给定选项关联的单行钮必须有相同的名字
+  - 每个选项有不同的值
+
+##### 复选框输入
+创建一个复选框控件，可以选中也可以不选中。多个复选框可以放在一起，可以根据需要选中多个选项，或不选。
+```html
+<input type="radio" name="hotornot" value="hot">
+<input type="radio" name="hotornot" value="not">
+```
+  - 每个选项使用一个 checkbox input
+  - 必须有相同的名字
+  - 每个选项有不同的值
+
+
+#### ??
+##### 文本区 textarea
+创建一个多行的文本区，可以在其中输入多行文本。文本超出后，右边会出现一个滚动条。
+```html
+<textarea name="comments" rows="10" cols="48"></textarea>
+```
+- 使用 name 属性为元素指定一个唯一的名字
+- row="": 告诉浏览器文本区高度多少字符
+- col="": 文本宽度
+- 开始和结束标记之间的所有文本会成为浏览器文本区控件中的初始文本。
+- 还可以用 CSS 指定文本区的宽度和高度
+
+
