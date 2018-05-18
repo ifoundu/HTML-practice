@@ -2283,7 +2283,7 @@ finally finished such a boring chapter.
 <body>
   <table>
     <tr>   <!-- tr: 行 （table row）-->
-      <th>City</th>  <!-- th: 表头 （好像是 table header）-->
+      <th>City</th>  <!-- th: 表头 （table heading -p635）-->
       <th>Date</th>
       <th>Temperature</th>
       <th>Altitude</th>
@@ -2291,7 +2291,7 @@ finally finished such a boring chapter.
       <th>Diner Rating</th>
     </tr>
     <tr>
-      <td>Walla Walla, WA</td>  <!-- td: 单元格 --> 
+      <td>Walla Walla, WA</td>  <!-- td: 单元格 table data --> 
       <td>June 15th</td>
       <td>75</td>
       <td>1,204 ft</td>
@@ -2381,7 +2381,7 @@ caption {
 }
 ```
 
-#### 单元格盒模型
+### 单元格盒模型
 - 内边距：padding 同一般盒模型
 - 外边距：border-spacing 与表格布局一样：边框间距  为所有单元格设置一个共同的间距。
  （再次证明 与表格布局在原理上是一样的）
@@ -2390,7 +2390,7 @@ caption {
   border-spacing: 10px 30px;  /*水平 垂直*/
   ```
 - 折叠边框： `bording-collapse:collapse;`
-- 单元格文本对齐： 原理还是盒子的文本对齐 text-align
+#### 单元格文本对齐： 原理还是盒子的文本对齐 text-align
   - td 中增加类
   - 规则
 
@@ -2423,14 +2423,14 @@ caption {
 }
 ```
 
-- 为表头增加颜色
+#### 为表头增加颜色
 ```css
 th {
   background-color: #cc6600;
 }
 ```
 
-- 为表行增加颜色
+#### 为表行增加颜色
   - 为行增加 类
 ```html
     <tr class="cellcolor">
@@ -2443,7 +2443,7 @@ th {
   background-color: #fcba7a;
 }
 ```
-#### 伪类 nth-child
+##### 伪类 nth-child
 nth-child的状态是一个元素相对于它的兄弟元素的数字顺序。
 - even : odd
 - 2n : 2n+1
@@ -2470,3 +2470,131 @@ p:nth-child(2n+1) {
 
 - 注意把 表头 th 的规则放在 tr:nth-child 所在规则的下方，th 的规则才不会被覆盖。也可以说，是让 th 可以覆盖 tr 的规则。
 
+- 如果有跨行，背景色会混乱 改用类指定
+
+### 让单元格跨多行
+#### rowspan 属性
+```html
+<tr>
+  <td rowspan="2">Truth or Consequences, NM</td> <!--跨两行-->
+  <td class="center">August 9th</td>
+  <td class="center">93</td>
+  <td rowspan="2">4,242 ft</td>
+  <td rowspan="2">7,289</td>
+  <td class="center" >5/5</td>
+  </tr>
+
+  <tr>
+   <!--被跨行，没有数据没有标记-->
+  <td class="center">August 27th</td>
+  <td class="center">98</td>
+   <!--同上-->
+   <!--同上-->
+  <td class="center">4/5</td>
+</tr>
+```
+
+### 让单元格跨多列
+#### colspan 属性
+- 删除同一行中的数据
+- 用法与跨行类似
+### 同时跨行和跨列
+### 嵌套表格
+- 把另一个 table 元素放在一个 td 中
+
+```html
+<td class="center">
+  <table>
+    <tr>
+      <th>Tony</th> <!--表头-->
+      <td>5/5</td>
+    </tr>
+    <tr>
+    <th>Tess</th>
+    <td>4/5</td>
+    </tr>
+  </table>
+</td>
+```
+
+### 为列表增加一些样式
+#### list-style-type 列表标记
+```css
+li {
+  list-style-type:  disc; /*默认的标记：实心圆点*/
+}
+```
+
+```css
+li {
+  list-style-type:  circle; /*空心圆 */
+}
+```
+
+```css
+li {
+  list-style-type:  square; /*空心方块 */
+}
+```
+
+```css
+li {
+  list-style-type:  none; /*没有标记 */
+}
+```
+
+```css
+ul {     /*会被 li 继承*/
+  list-style-type:  disc; 
+}
+```
+
+### 定制列表项标记
+
+```css
+li {
+  list-style-image: url(images/backpack.gif);
+  padding-top:  5px;   /* 列表项上内边距*/
+  margin-left:  20px;  /* 列表项左外边距*/
+}
+```
+
+### 有序列表
+不论有序列表还是无序列表，指定样式的方法都是一样的。  
+用list-style-type,常用值包括:
+- decimal: 十进制数
+- upper-alpha: 大写字母
+- lower-alpha: 小写字母
+- upper-roman：大写罗马数字
+- lower-roman: 小写罗马数字
+查阅 CSS 参考书了解更多选择
+
+#### list-style-position
+标记处于列表项盒子的里面或外面：+ 文本到达下一行时的显示
+
+```css
+li {
+  list-style-position:  inside;
+}
+
+```
+
+- inside: 
+  - 标记在列表项盒子边框`里`
+  - 文本会在标记下回绕（wrapping）
+  - 列表项`左外边框`从`标记`左边算起，因此，`标记`离窗口左边较`远`
+
+  ```css
+li {
+  list-style-position:  outside;
+}
+```
+- outside: 只在文本下回绕
+  - 标记在列表项盒子边框`外`
+  - 文本（下一行时）只在文本下回绕（对齐）
+  - 列表项`左外边框`从`文本`左边算起，因此，`标记`离窗口左边较`近` 
+
+
+### 单元格对齐
+- text-align: 上面讲过，利用类
+- vertical-align: 书中未要求操作，原理应该与text-align一样。练习 text-align 时，Chrome 的垂直对齐默认是居中。
