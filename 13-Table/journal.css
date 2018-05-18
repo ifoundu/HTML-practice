@@ -51,16 +51,38 @@ td.right {
   text-align:right;
 }
 
+
+/* 跨行后，背景色会混乱 改用类指定
 tr:nth-child(odd) {
   background-color: #fcba7a;
 }
+*/ 
 
 th {
   background-color: #cc6600;
 }
 
-/*
+
 .cellcolor {
   background-color: #fcba7a;
+}
+
+
+table table th {
+  background-color: white;
+
+}
+
+
+li {
+  list-style-image: url(images/backpack.gif);
+  padding-top:  5px;   /* 列表项上内边距*/
+  margin-left:  20px;  /* 列表项左外边距*/
+  list-style-position:  outside; /* 标记包含在列表项盒子边框里*/
+}
+
+/*
+li {
+  list-style-type:  disc;
 }
 */
