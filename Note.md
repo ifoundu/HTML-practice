@@ -2643,15 +2643,18 @@ li {
 - method 属性：确定表单数据如何发送到服务器
   - 最常用的方法：POST
 
-### 表单里可以有什么？
+### 表单里可以有什么？ （表单元素）
 #### `<input>`控件
+- input 是内联元素
+- 需要换行可在后面增加 br 元素
 ##### 单行控件
+input 用于单行文本的输入。
 ```html
 <input type="text" name="fullname">
 ```
 输入一行文本。有一些可选属性，允许你为这个控件设置最大字符个数和宽度。
   - type="text" : 创建一个单行控件
-  - name="" : 元素名，服务器脚本将使用这个元素名
+  - name="" : `元素名`。大多数表单元素都需要一个名字，服务器脚本将使用这个元素名
 
 是一个 void 元素。
 
@@ -2661,7 +2664,8 @@ li {
 ```
 创建提交按钮，允许提交表单。点击这个按钮时，浏览器会把表单发送到服务器脚本进行处理。
   - 默认标签：Submit / Submit Query
-  - 可改标签
+  - 可改标签：为元素指定一个 value 值 -p663
+  - 使用文本输入元素的 value 值，可以提供默认文本 -p663
 
 ##### 单选钮输入
 创建包含多个按钮的控件，但是一次只能选择其中一个按钮。
@@ -2670,23 +2674,23 @@ li {
 <input type="radio" name="hotornot" value="not">
 ```
   - 每个选项使用一个 radio input
-  - 与一组给定选项关联的单行钮必须有相同的名字
+  - 与一组给定选项关联的单行钮必须有相同的名字，【这样选择一个选项就会覆盖另一个选项 -p663】。
   - 每个选项有不同的值
 
 ##### 复选框输入
 创建一个复选框控件，可以选中也可以不选中。多个复选框可以放在一起，可以根据需要选中多个选项，或不选。
 ```html
-<input type="radio" name="hotornot" value="hot">
-<input type="radio" name="hotornot" value="not">
+<input type="checkbox" name="spice" value="Salt">
+<input type="checkbox" name="spice" value="Pepper">
+<input type="checkbox" name="spice" value="Garlic">
 ```
   - 每个选项使用一个 checkbox input
   - 必须有相同的名字
   - 每个选项有不同的值
+  - 浏览器会把所有复选框名发送到服务器，“spice= salt&pepper&garlic”
 
-
-#### ??
 ##### 文本区 textarea
-创建一个多行的文本区，可以在其中输入多行文本。文本超出后，右边会出现一个滚动条。
+创建一个`多行`的文本区，可以在其中输入多行文本。文本超出后，右边会出现一个滚动条。
 ```html
 <textarea name="comments" rows="10" cols="48"></textarea>
 ```
@@ -2697,3 +2701,208 @@ li {
 - 还可以用 CSS 指定文本区的宽度和高度
 
 
+##### select 元素： 菜单控件
+创建一个菜单控件。菜单提供了一种从一组选项中做出选择的方法。与 option 元素结合。
+select 元素`包围所有菜单选项`，把它们组合为一个菜单。  
+option 元素的`内容`用作`菜单项的描述`。每个菜单选项还可以包含一个表示这个菜单项的`值` value。
+```html
+<select name="characters">
+  <option value="Buckaroo">Buckaroo Banzai</option>
+  <option value="Tommy">Perfect Tommy</option>
+  <option value="Penny">Penny Priddy</option>
+</select>
+```
+
+- 浏览器会把 name 值 和 用户选择的 值，发送到服务器。p663
+
+##### 数字输入
+限制只能输入数字。可以用可选属性指定这个元素允许的最小数和最大数。
+```html
+<input type="number" min="0" max="20">
+```
+有些浏览器会在输入域旁边显示箭头，可以用来增减数字。
+
+##### 范围输入
+类似于 number ，只是它显示一个滑动条，而不是一个输入框。
+```html
+<input type="range" min="0" max="20" step="5">
+```
+number 和 range 都有一个可选的 step 属性，可用来指定值的间隔数（步长）。
+
+##### 颜色输入
+指定一个颜色。单击这个控件时，会弹出一个颜色选择器，允许你选择一个颜色，而不必输入颜色名或值。
+```html
+<input type="color">
+```
+如果浏览器不支持颜色输入元素，你会得到一个常规的文本输入控件。  
+
+##### 日期输入
+日期选择控件指定日期。  这个控件会创建一个合法的日期格式串，发送到`服务器脚本`。  
+如果浏览器不支持，会得到一个常规的文本输入控件。
+Q: 为什么说“发送到服务器脚本” ？  
+
+```html
+<input type="date">
+```
+
+##### email 输入
+是一个文本输入元素，只不过在一些移动浏览器上，开始输入 email 时你会得到一个方便输入 email 的定制键盘。  
+```html
+<input type="email">  <!-- Chrome PC 的只是一个文本输入 -->
+```
+##### tel 输入
+也只是一个文本输入元素，会在一些移动设备上弹出一个定制键盘。
+```html
+<input type="tel">
+```
+##### url 输入
+只是一个文本输入元素，在一些移动设备上弹出一个定制键盘。
+```html
+<input type="url">
+```
+#### email ,tel, url 这三种 input 类型，都是 text input 的变种。在桌面浏览器上，看不出任何区别。不过，在移动浏览器上它们会得到一个定制键盘，可以更容易地输入你需要的字符，如/,@ 和 数字。
+
+#### 即使有这些专用的类型，最后的使用还是取决于你，你要知道服务器脚本期望什么值，并使用适当的 input 类型。
+
+
+### 创建表单（实例）
+首先，要知道处理表单数据的服务器脚本的URL。
+http://starbuzzcoffee.com/processorder.php
+- 指向网站：starbuzzcoffee.com
+- 具体指向服务器上的processorder.php 服务器脚本。这个服务器脚本知道`如何从我们将要构建的表单得到订单`。
+- 增加 form 元素 和 action 属性
+- 使用 input 元素 创建一些不同的控件。type 属性确定了这是什么类型的控件。
+- name 属性相当于用户输入数据的一个标识符。每个 name 属性要设置为一个不同的值。
+```html
+    <form action="http://starbuzzcoffee.com/processorder.php" method="POST">
+      <p>
+          <input type="text" name="name"> <br>
+          <input type="text" name="address"> <br>
+          <input type="text" name="city"> <br>
+          <input type="text" name="state"> <br>
+          <input type="text" name="zip"> <br>
+          <input type="tel" name="phone">  <br>
+      </p>     
+    </form>
+```
+
+#### name 属性
+【 唯一的 name 属性值就是 所在 input 对应的元素名。 其实就是 input 的 id 】  
+name 相当于表单和`处理表单的`服务器脚本之间的一个黏合剂。
+- 表单中的每个输入控件都有一个 name 属性
+- name 的值/元素名：编写脚本的人应该告诉你要使用哪些元素名，或者在脚本文档中提供有关信息。-p663
+- 提交表单时，浏览器会使用这些唯一的名字打包所有数据。用唯一的 name 属性值作为数据的标签。然后浏览器把这些名字和值发送到服务器。如下所示,
+
+```
+name = Buckaroo Banzai   
+address = Banzai Institute  
+city = Los Angeles  
+state = CA  
+zip = 90050  
+phone = 310-555-1212  
+```
+元素名 = 对应的输入数据，  
+浏览器打包数据，  
+发给服务器。  
+
+
+#### 一些知识点
+- input 中输入的文本，可以使用 maxlength 属性，把它设置为一个特定的字符数。如 maxlength="100"，最多输入100个字符。  
+- 对于 textarea ， html 中没有办法限制用户键入多少文本。Q: 不是有 row 和 col 吗？
+- 需要知道服务器脚本期望得到 的表单元素的名字和类型。
+
+#### 将这些 input 元素放在 HTML 中
+```html
+    <form action="http://starbuzzcoffee.com/processorder.php" method="POST">
+      <p>Ship to: <br>
+          Name:<input type="text" name="name" value=""> <br>
+          Address:<input type="text" name="address" value=""> <br>
+          City:<input type="text" name="city" value=""> <br>
+          State:<input type="text" name="state" value=""> <br>
+          Zip:<input type="text" name="zip" value=""> <br>
+          Phone:<input type="tel" name="phone" value="">  <br>
+      </p>    
+      <p>
+        <input type="submit" value="Order Now">
+      </p> 
+    </form>
+```
+
+#### 增加 select 元素
+```html
+    <form ...>
+      <p>
+        Choose your beans:
+        <select name="beans">
+          <option value="House Blend">House Blend</option>
+          <option value="Bolivia">Shade Grown Bolivia Supremo</option>
+          <option value="Guatemala">Organic Guatemala</option>
+          <option value="Kenya">Kenya</option>
+        </select>
+      </p>
+      <p>
+        ...
+      </p>
+    </form>
+```
+- 浏览器将表单元素的名和值打包时，它会使用 select 元素的名和所选选项的值。 
+- 在这个例子中，浏览器会向服务器发送 beans="Guatemala" ( name = value )
+
+#### 增加单选钮
+```html
+<p>Type:<br>
+    <input type="radio" name="beantype" value="whole">Whole bean<br>
+    <input type="radio" name="bentype" value="ground">Ground
+</p>
+```
+Value 的值将发送到服务器。只会发送其中一个值。  
+通常把单选钮的标签放在元素右边。
+
+##### checked 布尔属性
+```html
+    <input type="radio" name="bentype" value="ground" checked>Ground
+```
+
+#### 使用更多输入类型
+
+```html
+Number of bags:<input type="number" name="bags" min="1" max="10"> <br>
+Must arrive by date: <input type="date" name="date">
+```
+
+date 也有一个 name 值
+
+#### 增加复选框
+
+```html
+<p>
+  Extra:<br>
+  <input type="checkbox" name="extras[]" value="giftwrap">Gift wrap<br>
+  <input type="checkbox" name="extras[]" value="catalog" checked>Include catalog with order
+</p>
+```
+
+- 元素名相同
+- 使用 checked，默认值。同时可复选。
+- 把标签放在复选框的右边
+- []在php脚本语言中表示一个表单变量包含多个值。-p675
+
+#### 增加文本区
+```html
+<p>Customer Comments: <br>
+  <textarea name="comments"></textarea>
+</p>
+```
+
+
+### 表单方法 POST 和 GET
+POST 和  GET 完成的任务是一样的，都是将你的表单数据从浏览器发送到服务器，不过采用了两种不同的方式。POST会打包你的表单变量，在后台把它们发送到服务器;GET也会打包你的表单变量，但会把这些数据追加到URL的最后，然后向服务器发送一个请求。  
+#### 差别：  
+如果你希望用户能够对提交表单后的结果页面加书签，就必须使用 GET。  
+假设你有一个服务器脚本，它会返回一个`搜索结果列表`，你可能希望用户能够对这些结果加书签，这样他们就能直接查看这些结果，而不用再填写表单了。    
+##### 不要用 GET ：  
+另一方面，如果你有一个处理`订单`的服务器脚本，可能不希望用户对这个页面加书签（否则，每次他们返回到这个书签时，都会重新提交这个订单）。  
+`私密信息`的发送，不能用GET，否则别人可以在查看用户的浏览器历史或书签时，很可能看到这些信息。
+
+【POST ：把数据提交给服务器】
+【GET : 得到信息】
