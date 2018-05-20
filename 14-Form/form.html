@@ -1,64 +1,122 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>The Starbuzz Bean Machine</title>
-  </head>
-  <body>
 
-    <h1>The Starbuzz Bean Machine</h1>
-    <h2>Fill out the form below and click submit to order</h2>
+<head>
+  <meta charset="utf-8">
+  <title>The Starbuzz Bean Machine</title>
+  <link rel="stylesheet" href="starbuzz.css">
+  <link rel="stylesheet" href="form.css">
+</head>
 
-    <form action="http://starbuzzcoffee.com/processorder.php" method="POST">
+<body>
 
+  <h1>The Starbuzz Bean Machine</h1>
+  <h2>Fill out the form below and click submit to order</h2>
+
+  <form action="http://starbuzzcoffee.com/processorder.php" method="POST">
+    <div class="tableRow">
       <p>
-          Choose your beans:
-          <select name="thembeans">
-            <option value="House Blend">House Blend</option>
-            <option value="Bolivia">Shade Grown Bolivia Supremo</option>
-            <option value="Guatemala">Organic Guatemala</option>
-            <option value="Kenya">Kenya</option>
-          </select>
-        </p>
+        Choose your beans:
+      </p>
+      <p>
+        <select name="beans">
+          <option value="House Blend">House Blend</option>
+          <option value="Bolivia">Shade Grown Bolivia Supremo</option>
+          <option value="Guatemala">Organic Guatemala</option>
+          <option value="Kenya">Kenya</option>
+        </select>
+      </p>
+    </div>
 
-      <p>Type:<br>
-        <input type="radio" name="beantype" value="whole">Whole bean<br>
+    <div class="tableRow">
+      <p>Type:</p>
+      <p>
+        <input type="radio" name="beantype" value="whole">Whole bean
+        <br>
         <input type="radio" name="bentype" value="ground" checked>Ground
-    </p>
+      </p>
+    </div>
 
-    <p>
-        Number of bags:<input type="number" name="bags" min="1" max="10"> <br>
-    </p>
-    <p>
-        Must arrive by date: <input type="date" name="date">
-    </p>
+    <div class="tableRow">
+      <p>Number of bags:</p>
+      <p>
+        <input type="number" name="bags" min="1" max="10"> </p>
+    </div>
 
-    <p>
-        Extra:<br>
-        <input type="checkbox" name="extras[]" value="giftwrap">Gift wrap<br>
+    <div class="tableRow">
+      <p>Must arrive by date: </p>
+      <p>
+        <input type="date" name="date">
+      </p>
+    </div>
+    <div class="tableRow">
+      <p> Extra: </p>
+      <p>
+        <input type="checkbox" name="extras[]" value="giftwrap">Gift wrap
+        <br>
         <input type="checkbox" name="extras[]" value="catalog" checked>Include catalog with order
-    </p>
+      </p>
+    </div>
 
-      <p>Ship to: <br>
-          Name:<input type="text" name="name" value=""> <br>
-          Address:<input type="text" name="address" value=""> <br>
-          City:<input type="text" name="city" value=""> <br>
-          State:<input type="text" name="state" value=""> <br>
-          Zip:<input type="text" name="zip" value=""> <br>
-          Phone:<input type="tel" name="phone" value="">  <br>
-      </p>    
+    <div class="tableRow">
+      <p class="heading">Ship to </p>
+      <p></p>
+      <!--留空单元格-->
+    </div>
 
-      <p>Customer Comments: <br>
+    <div class="tableRow">
+      <p>Name:</p>
+      <p><input type="text" name="name" value=""> </p>
+    </div>
+
+    <div class="tableRow">
+      <p>Address:</p>
+      <p>
+        <input type="text" name="address" value=""> </p>
+    </div>
+
+    <div class="tableRow">
+      <p>City:</p>
+      <p>
+        <input type="text" name="city" value="">
+      </p>
+    </div>
+
+    <div class="tableRow">
+      <p>State:</p>
+      <p>
+        <input type="text" name="state" value=""> </p>
+    </div>
+
+    <div class="tableRow">
+      <p>Zip:</p>
+      <p>
+        <input type="text" name="zip" value=""> </p>
+    </div>
+
+    <div class="tableRow">
+      <p>Phone:</p>
+      <p>
+        <input type="tel" name="phone" value=""> </p>
+    </div>
+
+    <div class="tableRow">
+      <p>Customer Comments: </p>
+      <p>
         <textarea name="comments"></textarea>
       </p>
+    </div>
 
+    <div class="tableRow">
+      <p></p>
+      <!--留空单元格-->
       <p>
         <input type="submit" value="Order Now">
-      </p> 
+      </p>
+    </div>
 
-    
-    </form>
+  </form>
 
-  </body>
+</body>
+
 </html>
-

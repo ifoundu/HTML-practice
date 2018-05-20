@@ -1,0 +1,37 @@
+body {
+    background: #efe5d0 url(images/11-layout-and-positioning/starbuzz/background.gif) top left;
+    margin: 20px;
+}
+
+form {                       /*相当于之前的 div class="tableContainer" */
+    display:    table;  
+    padding:    10px;        /*表单内容和边框之间*/
+    border: thin dotted #7e7e7e;
+    background-color:   #e1ceb8;
+}
+
+form textarea {
+    width:  500px;
+    height: 200px;
+}
+
+div.tableRow {
+    display:    table-row;
+}
+
+div.tableRow p {
+    display:    table-cell;
+    vertical-align: top;
+    padding:    3px;          /*行间距，更易阅读*/
+}
+
+div.tableRow p:first-child {  /*第一个子元素*/
+    text-align: right;
+}
+
+p.heading {
+    font-weight:    bold;
+}
+
+
+
