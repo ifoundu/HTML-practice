@@ -2898,11 +2898,317 @@ date 也有一个 name 值
 ### 表单方法 POST 和 GET
 POST 和  GET 完成的任务是一样的，都是将你的表单数据从浏览器发送到服务器，不过采用了两种不同的方式。POST会打包你的表单变量，在后台把它们发送到服务器;GET也会打包你的表单变量，但会把这些数据追加到URL的最后，然后向服务器发送一个请求。  
 #### 差别：  
+##### 用 GET ：
 如果你希望用户能够对提交表单后的结果页面加书签，就必须使用 GET。  
 假设你有一个服务器脚本，它会返回一个`搜索结果列表`，你可能希望用户能够对这些结果加书签，这样他们就能直接查看这些结果，而不用再填写表单了。    
 ##### 不要用 GET ：  
 另一方面，如果你有一个处理`订单`的服务器脚本，可能不希望用户对这个页面加书签（否则，每次他们返回到这个书签时，都会重新提交这个订单）。  
 `私密信息`的发送，不能用GET，否则别人可以在查看用户的浏览器历史或书签时，很可能看到这些信息。
+使用 textarea 就应该用 POST，因为可能会发送大量数据。
 
 【POST ：把数据提交给服务器】
 【GET : 得到信息】
+
+##### GET 和 POST 请求对于发送的数据量都有一个限制，不过对POST请求的限制通常要宽松得多。
+
+### 将表单元素放入 HTML 结构实现表格显示布局
+分为2列。
+- 用 class="tableRow" 的 div 表示表格中的各行。
+- 每个单元格中的内容嵌套在一个 p 元素中。
+- 对于单选钮和复选框，把对应各个菜单的所有表单元素都放在一个数据单元格中。
+- 对于只包含标签的行，如 ship to， 为 p 增加了一个类 heading, 以便对这个文本加粗。  
+   由于右边是空单元格，在这里直接放一个空的 p 元素。
+- 最后一行，左列有一个空单元格，所以同样的，可以在那里放置一个空的 p 元素。  
+[链接](14-Form/form.html)
+
+### 用 CSS 建立表单样式 
+- 定义 `display:table; `，表格显示布局
+- 定义 `display:table-row;`
+- 定义 `display:table-cell;`，并且单元格顶部对齐;
+- 修饰其他  
+[链接](14-Form/starbuzz.css)
+
+Q: textarea 在 html 有设定宽度和高度，会与在 CSS 里的宽度怎么样互相作用？
+Q: 这个规则不起作用，为什么？
+```css
+p.heading {
+  font-weight:    bold;
+}
+```
+
+### 关于可访问性
+用 label 元素来标记标签。  
+可以提供页面结构的更多信息，使你能更容易地使用 CSS 对标签设置样式，另外对于有视力障碍的人，也有助于他们使用的屏幕阅读器更准确地标识表单元素。  
+- 为表单元素增加 id 属性
+- 增加 label 元素，设置其 for 属性为相应的 id 。
+
+```html
+<input type="radio" name="hotornot" value="hot" id="hot">
+<label for="hot">hot</lable>
+
+<input type="radio" name="hotornot" value="not" id="not">
+<label for="not">not</label>
+```
+
+默认地，标签 与普通文本看上去并没有两样。不过，在可访问性方面，它们确实有很大不同。任何表单控件都可以使用 label 元素。
+
+```html
+<label for="bags">Number of bags:</label>
+<input type="number" id="bags" name="bags" min="1" max="10" > 
+```
+name 和 id 可以用同样的值，比如 bags 。
+
+为`单选项`和`复选框`控件增加标签时，尽管一组中所有控件的名字相同，但要记住每个控件的 id 必须是唯一的。【其实是因为标签是唯一的或者说为了对应标签，所以 id 要唯一】
+
+```html
+<input type="radio" id="whole_beantype" name="beantype" value="whole">
+<label for="whole_beantype">Whole bean</label><br>
+<input type="radio" id="ground_beantype" name="beantype" value="ground" checked><label for="bround_beantype">Ground</label>
+```
+【id 用来与 label 捆绑， name 是脚本里的变量名， value 是变量的值，与后面的程序执行有关。】  
+标签可以放在与它关联的控件前面或后面，只要 for 属性的值 与 id 匹配，标签放在哪里并不重要。
+
+Q: 什么是可访问性？
+
+### 更多表单元素
+#### fieldset 和 legend
+表单越来越大时，在视觉上对元素分组会很帮助。尽管 div 和 CSS 也可以做到，不过 HTML 还提供了一个 fieldset 元素，可以用来将公共元素组织在一起。 fieldset 又使用了另一个元素，名为legend。
+
+```html
+<fieldset>
+  <legend>Condiments</legend>
+    <input type="checkbox" name="spice" value="Salt">Salt<br>
+    <input type="checkbox" name="spice" value="Pepper">Pepper<br>
+    <input type="checkbox" name="spice" value="Garlic">Garlic
+</fieldset>
+```
+
+#### password
+`password <input>`元素与 `text <input>`元素很类似，只是你输入 的文本会加掩码。不过，表单数据并不会采用一种安全的方式 从浏览器发送到服务器脚本。  
+```html
+<input type="password" name="secret">
+```
+
+#### 发送文件
+属于输入元素，创建文件输入控件。向服务器发送整个文件。允许你选择一个文件，表单提交时，文件的内容会随其余的表单数据一同发送给服务器。记住【前提是】，你的服务器脚本希望上传一个文件，另外需要说明，使用这个元素的前提是必须使用POST方法。
+```html
+<input type="file" name="doc">
+```
+浏览器的显示有各自的形式，有的显示 “ choose file ”,有的 “ Browse ”...
+
+### 多选菜单
+已知元素的一种新方法。  
+为 select 元素增加布尔属性 multiple ，就会把你的单选菜单变成一个多选菜单。
+不再显示一个下拉式菜单，你会得到一个多选菜单，在屏幕上显示所有选项（如果选项太多，还会有一个滚动条）。选择时通过同时按下 ctrl 或 command 键，可以选择多个选项。
+```html
+<select name="characters" multiple>
+  <option value="Buckaroo">Buckaroo Banzai</option>
+  <option value="Tommy">Perfect Tommy</option>
+  <option value="Penny">Penny Priddy</option>
+</select>
+```
+【貌似现在很少遇到】
+
+### Placeholder
+表单中大多数不同类型的 input 元素都可以使用 placeholder 属性，允许提供一个提示/示例，使用户了解你希望表单的这一部分需要输入怎样的内容。这个属性的值会显示在控件中，但是比增加到控件的正常内容要浅一些，一旦单击这个文本域，占位文本就会消失，所以它不会与你输入的内容混杂在一起。
+
+```html
+<input type="text" placeholder="Buckaroo Banzai">
+```
+
+Q: 可以在 textarea中使用吗？代替元素内容？
+
+### Required
+布尔属性。这个属性可以用于任何表单控件，它指示一个域是必要的，没有指定值则无法正常提交表单。浏览器会提示错误信息。
+
+```html
+<input type="text" placeholder="Buckaroo Banzai" required>
+```
+
+### 总结
+- `text <input>`元素中的 value 属性可以用来为单行文本输入控件提供一个初始值。  
+- 提交一个 web 表单时，表单数据值与相应的数据名【元素名】配对，所有名和值会发送到服务器。- 表单有一个表格结构。
+
+
+
+# 附录：
+## #1 更多的 CSS 选择器
+### 伪元素 Pseudo-element
+可以用来选择元素的某些部分，这些部分可能不便于包围在 div 或 span 中，也不方便用其他方法来选择。  
+例如， first-letter 伪元素可以用来选择一个块元素中文本的第一个字母，能创建诸如首字母大写和首字母下沉等效果。  
+例如， first-line 伪元素选择段落的第一行。  
+```css
+p:first-letter {     /*语法与伪类相同*/
+  font-size:  3em;   /*首字母放大*/
+}
+p:first-line {
+  font-style: italic;
+}
+```
+
+### 属性选择器
+根据属性值来选择元素。
+```css
+img[width] { border: black thin solid;} /*所有包含 width 属性的图像*/
+img[height="300"] { border: red thin solid;} /* height属性值为300的所有图像*/
+image [alt~="flowers"] { border: #ccc thin solid;} /* 选择 alt 属性包含单词 flowers 的所有图像*/
+```
+#### 按兄弟选择
+先写前面的元素，再写一个“+”，然后是兄弟元素
+```css
+h1+p {         /*所有紧跟在 h1 元素后面的段落*/
+  font-style: italic;
+}
+```
+
+#### 结合选择器
+把一个类选择器作为子孙选择器的一部分，如下：
+```css
+.blueberry p {color: purple;}  /*选择作为 blueberry 类元素的子孙所有段落*/
+```
+
+##### 复杂的选择器：
+```css
+div#greentea > blockquote p:first-line { font-style:  italic;}
+```
+
+## #2 开发商特定的 CSS 属性
+浏览器的测试属性，如下：
+```css
+-moz-transform /* -开发商标识符-属性 */
+```
+不一定能用在交付的产品中。  
+周全的作法：  
+- 列出通用属性
+- 列出已知的开发商特定的属性
+```css
+div {
+  transform:  rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform:  rotate(45deg);
+}
+```
+通常可以在各个浏览器的开发文档和发行说明中找到这些开发商特定的属性，或者加入与各浏览器开发过程相关的论坛。
+
+## #3 CSS 变换和过渡 
+对元素做充分的 2D 和 3D 变换。  
+[链接](Appendix/transform.html)
+
+#### transform 变换
+```css
+      #box {    /* 下面的 box <div> 的基本样式*/
+        position:absolute;
+        top:100px;
+        left:100px;
+        width: 200px;
+        height:200px;
+        background-color: red;
+      }
+
+      #box:hover {      /* 当 div 处于悬停状态时才会应用这个样式规则*/
+        transform:  rotate(45deg);  /*把鼠标停在 div 上时，会对这个元素完成变换，将它旋转45度*/
+
+      }
+```
+
+#### transition 过渡
+
+```css
+transition: transform 2s;
+```
+这个 transition 属性指出：“如果 transform 属性的值改变，要在指定时间内从当前 transform 值过渡到新的 transform 值。”
+```css
+      #box {    
+        position:absolute;
+        top:100px;
+        left:100px;
+        width: 200px;
+        height:200px;
+        background-color: red;
+
+        transition: transform 2s; /*从无变换到45度旋转的过渡要在2秒内完成。  */
+      }
+
+      #box:hover {      
+        transform:  rotate(45deg);  
+      }
+```
+transform 没有默认值，也就是说，没有变换。  
+把鼠标停在 BOX 上时， transform 的值会改为 45度旋转。所以，从无变换到45度旋转的过渡要在2秒内完成。  
+transition 属性的值也是一个属性，在这里，  
+transition 属性值为 transform，和 持续时间( duration), 2秒。   
+产生动画效果：让变化在指定时间内完成。
+【transiton 指定 变换的方式; transform】
+
+## #4 交互
+ HTML 页面并不只能是被动的文档，它们完全可以有可执行的内容。 可执行的内容有自己的行为。要创建可执行的内容，可以使用一种 JavaScript 脚本语言来编写程序或脚本。 
+ `<script>` 允许在 HTML 中放入代码。
+ ```html
+ <script> 
+  window.onload = init;
+  function init() {
+    var submitButton = document.getElementById("submitButton");
+    <!--使用表单的 id 来得到表单的一个句柄，以便对它进行处理，比如定义单击一个按钮时会发生什么 -->
+    submitButton.onclick = validBid;
+  }
+
+  function validBid() {
+    if (document.getElmentById("bid").value > 0) { 
+   <!--检查用户的 bid ，确保它不会小于等于 0 -->
+        document.getElementById("theForm").submit();
+    } else {
+      return false;
+    }
+  }
+
+  <!--如果 bid 大于 0， 则提交这个表单。否则，由于这是一个错误，所以不提交订单。-->
+
+  <form id="theForm" method="post" action="contest.php">
+    <input type="number" id="bid" value="0"><br>
+    <input type="button" id="submitButton" value="Bid!"><br>
+  </form>
+  <!--在 JS 中，可以定义单击 submitButton 时会发生什么，并用 id “bid” 得到输入值-->
+ ```
+
+ ### 表单输入验证
+ 是一个很常见也很有用的任务，通常用 JavaScript 完成。  
+
+ ## #5 HTML5 API 和 Web 应用
+HTML5 提供一组新的应用编程接口（API），`可以通过 JS 访问`。
+- 在页面上创建一个可绘制的 2D 表面
+- 使页面掌握位置信息，知道你的用户所在的位置，向他们显示附近有些什么，等等
+- 使用 Web 工作线程可以提高 JS 代码的效率，完成一些复杂的计算，或者使你的应用更具响应性。甚至可以更好地利用你的用户的多核处理器。
+- 访问任何 Web 服务，并将数据（近实时地）传回应用。
+- 使用浏览器存储在本地的缓存数据，提高移动应用的速度
+- 将页面与 GOOGLE MAPS集成，甚至允许用户实时地跟踪他们的移动轨迹
+- 不需要特殊的插件来播放视频
+- 创建视频回放
+- 利用浏览器的本地存储
+- 你可为用户在本地（浏览器中）存储大量首选项和数据，甚至可以离线访问。
+- 直接在浏览器上绘制像素。
+- 让表单提供真正的交互性。
+- 采用新的方式加入视频。
+- 完成完备的视频处理。不仅能创建特效，甚至可以直接处理视频像素。
+
+## #6 Web 字体
+## #7 创建 Web 页面的工具
+## #8 XTML5
+## #9 服务器端脚本
+很多 Web 页面都是由服务器上运行的应用生成的。
+Web 语言：PHP, Python, Perl, Node.js, Ruby on Rails 和 JavaServer Pages(JSP),微软VB.NET 和 ASP.NET
+
+## #10 音频
+audio 元素
+```html
+<audio src="song.mp3" id="boombox" controls>
+  Sorry but audio is not supported in your brownsers.
+  </audio>
+```
+- 没有标准编码
+- 结合 JS ，可以创建有趣的 Web 体验
+- 利用 HTML5 可以做到，不再需要插件，如 FLASH
+
+
+

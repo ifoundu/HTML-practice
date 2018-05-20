@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CSS Transforms and Transitions</title>
+    <style>
+      #box {    /* 下面的 box <div> 的基本样式*/
+        position:absolute;
+        top:100px;
+        left:100px;
+        width: 200px;
+        height:200px;
+        background-color: red;
+
+        transition: transform 2s;
+        -webkit-transition: -webkit-transform 2s;
+        -moz-transition: -moz-transform 2s;
+        -o-transition: -o-transform 2s;
+      }
+
+      #box:hover {      /* 当 div 处于悬停状态时才会应用这个样式规则*/
+        transform:  rotate(45deg);  /*把鼠标停在 div 上时，会对这个元素完成变换，将它旋转45度*/
+        -webkit-transform: rotate(45deg); /*浏览器特定的扩展*/
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -ms-transform:  rotate(45deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+  </body>
+</html>
